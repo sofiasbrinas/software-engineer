@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dreamy Neon · Trilha Software Engineer Junior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo: #0D0B1A;
+    --midnight: #1B1233;
+    --violet: #5A4CFF;
+    --rose: #FF6EA7;
+    --sunset: #FFB36B;
+    --lilac: #E9E4FF;
+    --milk: #FAF7FF;
+
+    --ink: #1B1233;
+    --ink-soft: #6E66A0;
+    --paper: #F3F1FB;
+    --panel: #FFFFFF;
+    --line: rgba(27,18,51,0.10);
+    --tint: #E9E4FF;
+    --switch-off: #E4E0F7;
+    --btn2-bg: #FFFFFF;
+    --glow-1: rgba(138,99,255,0.16);
+    --glow-2: rgba(255,110,167,0.14);
+    --card-shadow: rgba(27,18,51,0.05);
+
+    --g-flare:    linear-gradient(135deg, #FFB36B 0%, #FF6EA7 100%);
+    --g-dream:    linear-gradient(135deg, #8A63FF 0%, #FF6EA7 100%);
+    --g-electric: linear-gradient(135deg, #5A4CFF 0%, #FFB36B 100%);
+    --g-bloom:    linear-gradient(135deg, #FF6EA7 0%, #E9E4FF 100%);
+    --g-dusk:     linear-gradient(135deg, #5A4CFF 0%, #0D0B1A 100%);
+    --g-hero:     linear-gradient(120deg, #1B1233 0%, #5A4CFF 32%, #FF6EA7 68%, #FFB36B 100%);
+    --g-accent:   linear-gradient(90deg, #5A4CFF 0%, #FF6EA7 55%, #FFB36B 100%);
+  }
+
+  html[data-theme="dark"]{
+    --ink: #F3F1FB;
+    --ink-soft: #A79FD1;
+    --paper: #0D0B1A;
+    --panel: #170F30;
+    --line: rgba(255,255,255,0.09);
+    --tint: rgba(90,76,255,0.18);
+    --switch-off: rgba(255,255,255,0.14);
+    --btn2-bg: #170F30;
+    --glow-1: rgba(138,99,255,0.28);
+    --glow-2: rgba(255,110,167,0.20);
+    --card-shadow: rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+      radial-gradient(ellipse at 8% 0%, var(--glow-1) 0%, transparent 55%),
+      radial-gradient(ellipse at 92% 8%, var(--glow-2) 0%, transparent 50%),
+      var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .25s ease, color .25s ease;
+  }
+
+  .sparkle{ display:inline-block; position:relative; top:-0.05em; }
+
+  /* ---------- Layout shell ---------- */
+  .shell{
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+  }
+  @media (max-width: 900px){
+    .shell{ grid-template-columns: 1fr; }
+    .sidebar{ position: static; height: auto; border-right:none; border-bottom:1px solid var(--line); }
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    padding: 28px 20px 40px;
+    position: sticky;
+    top:0;
+    height: 100vh;
+    overflow-y:auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom: 4px;
+  }
+  .brand-mark{
+    width:34px; height:34px; border-radius:10px;
+    background: var(--g-dusk);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:#FFB36B;
+    box-shadow: 0 4px 14px rgba(90,76,255,0.35);
+  }
+  .brand-title{ font-weight:800; font-size:15px; letter-spacing:0.02em; flex:1; }
+
+  .theme-toggle{
+    width:32px; height:32px; border-radius:10px; flex:none;
+    border: 1px solid var(--line); background: var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:14px; color: var(--ink);
+    transition: background-color .2s ease, border-color .2s ease, transform .15s ease;
+  }
+  .theme-toggle:hover{ background: var(--tint); transform: translateY(-1px); }
+  .theme-toggle:active{ transform: translateY(0) scale(0.94); }
+
+  .brand-sub{
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 2px 0 22px 44px;
+  }
+
+  .ring-wrap{
+    display:flex; align-items:center; gap:14px;
+    background: var(--tint);
+    border-radius:18px;
+    padding: 16px;
+    margin-bottom: 22px;
+  }
+  .ring{
+    width:64px; height:64px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: conic-gradient(#5A4CFF var(--pct,0%), rgba(255,255,255,0.6) 0);
+    flex: none;
+  }
+  .ring-inner{
+    width:48px; height:48px; border-radius:50%;
+    background: var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:13px; color:var(--ink);
+  }
+  .ring-label b{ display:block; font-size:20px; font-weight:800; }
+  .ring-label span{ font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em; }
+
+  nav.phaselist{ display:flex; flex-direction:column; gap:4px; margin-top: 6px; }
+  .navlabel{
+    font-size:10px; text-transform:uppercase; letter-spacing:0.14em;
+    color: var(--ink-soft); margin: 18px 8px 8px;
+  }
+  .navitem{
+    display:flex; align-items:center; gap:10px;
+    padding: 9px 10px; border-radius: 12px;
+    cursor:pointer; border:1px solid transparent;
+    transition: background .15s ease, border-color .15s ease, transform .1s ease;
+  }
+  .navitem:hover{ background: rgba(90,76,255,0.08); }
+  .navitem.active{
+    background: var(--panel);
+    border-color: rgba(90,76,255,0.35);
+    box-shadow: 0 4px 16px rgba(90,76,255,0.14);
+  }
+  .navdot{
+    width: 9px; height:9px; border-radius:50%; flex:none;
+  }
+  .navtext{ flex:1; min-width:0; }
+  .navtext .t{
+    font-size: 12.5px; font-weight:600; color: var(--ink);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .navbar-mini{
+    height: 4px; border-radius:3px; background: rgba(27,18,51,0.08);
+    margin-top: 4px; overflow:hidden;
+  }
+  .navbar-mini > i{ display:block; height:100%; border-radius:3px; }
+  .navpct{ font-size:10.5px; color: var(--ink-soft); font-weight:600; flex:none; width: 32px; text-align:right; }
+
+  /* ---------- Main ---------- */
+  main{ padding: 34px 40px 80px; max-width: 980px; margin: 0 auto; width: 100%; }
+  @media (max-width: 640px){ main{ padding: 22px 18px 60px; } }
+
+  .hero{
+    border-radius: 24px;
+    background: var(--g-hero);
+    padding: 30px 34px;
+    position: relative;
+    overflow:hidden;
+    margin-bottom: 26px;
+    box-shadow: 0 18px 40px rgba(27,18,51,0.28);
+  }
+  .hero::after{
+    content:"✦"; position:absolute; right:26px; top:18px; font-size:26px; color: rgba(255,255,255,0.85);
+  }
+  .hero::before{
+    content:"✧"; position:absolute; right:70px; bottom:20px; font-size:16px; color: rgba(255,255,255,0.55);
+  }
+  .eyebrow{
+    font-size: 11px; text-transform:uppercase; letter-spacing:0.16em;
+    color: rgba(255,255,255,0.75); font-weight:700; margin-bottom:8px;
+  }
+  .hero h1{
+    margin:0 0 8px; font-size: 30px; font-weight:800; letter-spacing:-0.01em;
+    color:#fff;
+  }
+  .hero p{ margin:0; max-width: 540px; color: rgba(255,255,255,0.82); font-size:14px; line-height:1.6; }
+
+  .statrow{ display:flex; gap:14px; margin-top:22px; flex-wrap:wrap; }
+  .statchip{
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 14px;
+    padding: 10px 16px;
+    min-width: 110px;
+  }
+  .statchip b{ display:block; font-size:20px; font-weight:800; color:#fff; }
+  .statchip span{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em; color: rgba(255,255,255,0.72); }
+
+  .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 26px; }
+  @media (max-width: 760px){ .grid2{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px 22px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    transition: background-color .25s ease, border-color .25s ease;
+  }
+  .card h3{ margin:0 0 4px; font-size:13px; letter-spacing:0.02em; }
+  .card .muted{ font-size:12px; color:var(--ink-soft); margin: 0 0 14px; }
+
+  /* pace slider card */
+  .pace-value{ font-size:26px; font-weight:800; margin-bottom:2px;
+    background: var(--g-dream); -webkit-background-clip: text; background-clip:text; color:transparent;
+  }
+  input[type="range"]{
+    -webkit-appearance:none; width:100%; height:8px; border-radius:6px;
+    background: var(--g-accent); outline:none; margin: 14px 0 6px;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
+    background:#fff; border: 3px solid #5A4CFF; cursor:pointer;
+    box-shadow: 0 2px 8px rgba(90,76,255,0.45);
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:20px; height:20px; border-radius:50%;
+    background:#fff; border: 3px solid #5A4CFF; cursor:pointer;
+  }
+  .pace-ticks{ display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-soft); }
+  .pace-result{ margin-top:14px; font-size:12.5px; color: var(--ink-soft); }
+  .pace-result b{ color: var(--ink); }
+
+  /* buttons */
+  .btn{
+    border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13px;
+    border-radius: 999px; padding: 11px 18px; display:inline-flex; align-items:center; gap:8px;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn-primary{ background: var(--g-dream); color: #fff; box-shadow: 0 8px 20px rgba(138,99,255,0.4); }
+  .btn-primary:hover{ box-shadow: 0 10px 26px rgba(255,110,167,0.45); }
+  .btn-secondary{ background: var(--btn2-bg); color: var(--ink); border: 1.5px solid var(--violet); }
+  .btn-secondary:hover{ background: rgba(90,76,255,0.1); }
+  .btn-ghost{ background:transparent; color: var(--ink-soft); font-size:12px; padding: 8px 12px; }
+  .btn-ghost:hover{ color: var(--ink); }
+
+  /* phase detail */
+  .phase-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom: 18px; }
+  .phase-badge{
+    display:inline-block; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.1em;
+    padding: 5px 11px; border-radius: 999px; color:#fff; margin-bottom:10px;
+  }
+  .phase-title{ font-size: 24px; font-weight:800; margin: 0 0 8px; letter-spacing:-0.01em; }
+  .phase-obj{ font-size: 13.5px; color: var(--ink-soft); max-width: 640px; line-height:1.6; margin:0; }
+
+  .deepen-box{
+    background: var(--tint);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .deepen-row{ display:flex; flex-direction:column; gap:6px; }
+  .deepen-label{
+    font-size: 10px; text-transform:uppercase; letter-spacing:0.1em; font-weight:700;
+    color: var(--ink-soft);
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:7px; }
+  .chip{
+    font-size: 11.5px; font-weight:600; color: var(--ink);
+    background: var(--panel); border: 1px solid var(--line);
+    padding: 5px 11px; border-radius: 999px;
+  }
+  .deepen-market{ margin:0; font-size: 12.5px; line-height:1.55; color: var(--ink); }
+  .deepen-source{ flex-direction:row; align-items:center; gap:8px; }
+  .deepen-source .deepen-label{ margin:0; }
+  .deepen-source code{
+    font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px;
+    background: var(--panel); border: 1px solid var(--line);
+    padding: 3px 9px; border-radius: 8px; color: var(--violet);
+  }
+
+  .progressbar{ height:10px; border-radius:8px; background: var(--tint); overflow:hidden; margin: 18px 0 22px; }
+  .progressbar > i{ display:block; height:100%; border-radius:8px; transition: width .25s ease; }
+
+  .checklist{ display:flex; flex-direction:column; gap:2px; }
+  .check-row{
+    display:flex; align-items:center; gap:14px;
+    padding: 13px 6px; border-bottom: 1px solid var(--line);
+  }
+  .check-row:last-child{ border-bottom:none; }
+  .check-text{
+    flex:1; font-size: 13.5px; line-height:1.5; color: var(--ink);
+  }
+  .check-row.done .check-text{ color: var(--ink-soft); text-decoration: line-through; text-decoration-color: rgba(27,18,51,0.3); }
+
+  /* toggle switch */
+  .switch{ position:relative; width:44px; height:25px; flex:none; }
+  .switch input{ opacity:0; width:0; height:0; position:absolute; }
+  .switch label{
+    position:absolute; inset:0; border-radius:999px; cursor:pointer;
+    background: var(--switch-off); transition: background .18s ease;
+  }
+  .switch label::after{
+    content:""; position:absolute; top:3px; left:3px; width:19px; height:19px; border-radius:50%;
+    background:#fff; box-shadow: 0 1px 3px rgba(0,0,0,0.25); transition: transform .18s ease;
+  }
+  .switch input:checked + label{ background: var(--g-dream); }
+  .switch input:checked + label::after{ transform: translateX(19px); }
+
+  .phase-nav-buttons{ display:flex; justify-content:space-between; margin-top: 26px; gap:10px; }
+
+  footer.note{
+    margin-top: 34px; font-size: 11.5px; color: var(--ink-soft); line-height:1.6;
+    border-top: 1px solid var(--line); padding-top: 16px;
+  }
+
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-thumb{ background: var(--violet); border-radius:8px; opacity:0.5; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">✦</div>
+      <div class="brand-title">Dreamy&nbsp;Neon</div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+        <span class="theme-toggle-icon" id="themeIcon">☾</span>
+      </button>
+    </div>
+    <div class="brand-sub">Trilha Engenharia</div>
+
+    <div class="ring-wrap">
+      <div class="ring" id="ringOverall"><div class="ring-inner" id="ringOverallPct">0%</div></div>
+      <div class="ring-label">
+        <b id="overallDone">0/0</b>
+        <span>itens concluídos</span>
+      </div>
+    </div>
+
+    <div class="navlabel">Fundamentos</div>
+    <nav class="phaselist" id="navFund"></nav>
+
+    <div class="navlabel">Stack Backend</div>
+    <nav class="phaselist" id="navStack"></nav>
+
+    <div class="navlabel">Engenharia &amp; Carreira</div>
+    <nav class="phaselist" id="navEng"></nav>
+
+    <div class="navlabel">Portfólio Final</div>
+    <nav class="phaselist" id="navProjects"></nav>
+
+    <div class="navlabel">Empregabilidade</div>
+    <nav class="phaselist" id="navEmpreg"></nav>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow">Paleta de progresso · Dreamy Neon</div>
+      <h1 id="heroTitle">De autodidata a Software Engineer Junior <span class="sparkle">✦</span></h1>
+      <p id="heroSub">Acompanhe, fase por fase, tudo que você já domina no guia — do fundamento de computação até a sua primeira vaga, incluindo os 10 projetos do Portfólio Final (Anexo B) e o plano de empregabilidade (Anexo C).</p>
+      <div class="statrow">
+        <div class="statchip"><b id="statPhasesDone">0/31</b><span>etapas concluídas</span></div>
+        <div class="statchip"><b id="statItemsDone">0/0</b><span>itens marcados</span></div>
+        <div class="statchip"><b id="statPct">0%</b><span>progresso total</span></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Ritmo de estudo</h3>
+        <p class="muted">Ajuste para estimar seu cronograma (Anexo A)</p>
+        <div class="pace-value" id="paceValue">25h / semana</div>
+        <input type="range" id="paceSlider" min="0" max="2" step="1" value="1">
+        <div class="pace-ticks"><span>15h</span><span>25h</span><span>40h</span></div>
+        <div class="pace-result" id="paceResult"></div>
+      </div>
+
+      <div class="card">
+        <h3>Ações</h3>
+        <p class="muted">Seu progresso fica salvo neste navegador</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <button class="btn btn-primary" onclick="markAllCurrentPhase()">Concluir fase atual →</button>
+          <button class="btn btn-secondary" onclick="exportProgress()">Exportar progresso</button>
+          <button class="btn btn-ghost" onclick="resetProgress()">Reiniciar tudo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="phaseCard">
+      <div class="phase-head">
+        <div>
+          <span class="phase-badge" id="phaseBadge">Fase 0</span>
+          <h2 class="phase-title" id="phaseTitle">—</h2>
+          <p class="phase-obj" id="phaseObj">—</p>
+        </div>
+      </div>
+
+      <div class="deepen-box" id="deepenBox">
+        <div class="deepen-row">
+          <span class="deepen-label">Conceitos-chave</span>
+          <div class="chip-row" id="phaseConcepts"></div>
+        </div>
+        <div class="deepen-row">
+          <span class="deepen-label">Como isso aparece no mercado</span>
+          <p class="deepen-market" id="phaseMarket">—</p>
+        </div>
+        <div class="deepen-row deepen-source">
+          <span class="deepen-label">Conteúdo completo neste arquivo</span>
+          <code id="phaseFile">—</code>
+        </div>
+      </div>
+
+      <div class="progressbar"><i id="phaseBarFill" style="width:0%"></i></div>
+
+      <div class="checklist" id="checklist"></div>
+
+      <div class="phase-nav-buttons">
+        <button class="btn btn-secondary" id="btnPrev" onclick="gotoOffset(-1)">← Fase anterior</button>
+        <button class="btn btn-primary" id="btnNext" onclick="gotoOffset(1)">Próxima fase →</button>
+      </div>
+    </div>
+
+    <footer class="note">
+      Baseado no <b>Teach Guide — De Autodidata a Software Engineer Junior (2026/2027)</b>.
+      Cada etapa mostra os conceitos-chave, a relevância de mercado e o arquivo `.md` de origem —
+      abra o arquivo indicado para ler a explicação completa, exemplos de código, diagramas e
+      exercícios daquele bloco. As Fases 0-15 refletem a seção "O que dominar" de cada capítulo;
+      os Projetos 1-10 refletem as entregas obrigatórias do Portfólio Final (Anexo B); e o bloco
+      Empregabilidade reflete o checklist do Plano de Empregabilidade Aprofundado (Anexo C).
+      Marque apenas o que você realmente já fez ou consegue fazer sem consultar material.
+    </footer>
+  </main>
+</div>
+
+<script>
+/* ---------- Conteúdo: fases + checklists extraídos do guia ---------- */
+const GRADIENTS = ['g-flare','g-dream','g-electric','g-bloom','g-dusk'];
+const GRADIENT_CSS = {
+  'g-flare':    'linear-gradient(135deg, #FFB36B 0%, #FF6EA7 100%)',
+  'g-dream':    'linear-gradient(135deg, #8A63FF 0%, #FF6EA7 100%)',
+  'g-electric': 'linear-gradient(135deg, #5A4CFF 0%, #FFB36B 100%)',
+  'g-bloom':    'linear-gradient(135deg, #FF6EA7 0%, #E9E4FF 100%)',
+  'g-dusk':     'linear-gradient(135deg, #5A4CFF 0%, #0D0B1A 100%)'
+};
+const SOLID = { 'g-flare':'#FF9A5A','g-dream':'#8A63FF','g-electric':'#5A4CFF','g-bloom':'#FF6EA7','g-dusk':'#3B2E8A' };
+
+const PHASES = [
+  { id:'f0', group:'Fundamentos', label:'Fase 0', title:'Mentalidade de Engenharia',
+    obj:'Instalar o método de estudo (Active Recall, repetição espaçada, uso responsável de IA) antes da primeira linha de código.',
+    file:'modulo-01.md',
+    concepts:['Active Recall','Spaced Repetition (Anki)','Documentação antes de vídeo','GitHub como diário de evolução','Inglês técnico','Uso responsável de IA'],
+    market:'Recrutadores não perguntam "você usa Anki?" — mas notam a consequência: aprendizado rápido, retenção real e autonomia sem terceirizar o raciocínio para a IA.',
+    items:[
+      'Explico Active Recall, Spaced Repetition e a Técnica de Feynman com minhas próprias palavras',
+      'Tenho um sistema de repetição espaçada configurado e em uso (ex: Anki)',
+      'Leio documentação oficial antes de recorrer a vídeo/tutorial',
+      'Tenho um repositório GitHub ativo como diário de evolução, com commits reais',
+      'Escrevo commits, comentários e código em inglês',
+      'Tenho minhas regras pessoais de uso de IA nos estudos escritas e commitadas'
+    ]},
+  { id:'f1', group:'Fundamentos', label:'Fase 1', title:'Fundamentos da Computação',
+    obj:'Entender o que acontece “por baixo do capô”: CPU, memória, SO, redes — a base que não muda a cada novo framework.',
+    file:'modulo-01.md',
+    concepts:['Binário e hexadecimal','Processos vs. Threads','Stack vs. Heap','Compilador vs. Interpretador vs. JIT','TCP/IP, DNS, HTTP'],
+    market:'Perguntas de fundamentos aparecem até em entrevistas Junior de empresas como Google, Microsoft e Amazon.',
+    items:[
+      'Converto números entre decimal, binário e hexadecimal manualmente',
+      'Explico por que 0.1 + 0.2 não é exatamente 0.3 (ponto flutuante)',
+      'Explico a diferença entre processo e thread com um exemplo prático',
+      'Explico stack e heap, e por que recursão infinita gera stack overflow',
+      'Navego e manipulo arquivos fluentemente pelo terminal, sem interface gráfica',
+      'Explico a diferença entre compilador, interpretador e JIT',
+      'Explico em alto nível o que acontece do URL até a resposta do servidor',
+      'Explico a diferença entre concorrência e paralelismo'
+    ]},
+  { id:'f2', group:'Fundamentos', label:'Fase 2', title:'Lógica de Programação',
+    obj:'Raciocínio independente de linguagem: algoritmos, estruturas de dados, recursão e Big O.',
+    file:'modulo-02.md',
+    concepts:['Pseudocódigo','Busca linear e binária','Pilha e fila','Recursão','Big O'],
+    market:'Praticamente toda entrevista técnica de Junior testa raciocínio algorítmico, independente da stack usada no dia a dia.',
+    items:[
+      'Escrevo pseudocódigo antes de codar qualquer solução nova',
+      'Implemento busca linear e busca binária do zero',
+      'Implemento pilha e fila do zero, sem estrutura pronta da linguagem',
+      'Escrevo funções recursivas com caso base corretamente definido',
+      'Calculo a complexidade Big O de um algoritmo olhando o código',
+      'Debugo sistematicamente, formulando hipóteses testáveis'
+    ]},
+  { id:'f3', group:'Stack Backend', label:'Fase 3', title:'JavaScript Moderno',
+    obj:'Dominar a linguagem de verdade: event loop, closures, assincronismo — não só sintaxe de framework.',
+    file:'modulo-03.md',
+    concepts:['var/let/const','this e contexto','Closures','Promises e async/await','Event Loop','map/filter/reduce'],
+    market:'Closures, this e Event Loop são os tópicos mais recorrentes em entrevistas para vagas JS/Node.',
+    items:[
+      'Explico a diferença entre var, let e const, e por que evitar var',
+      'Explico como o this se comporta em diferentes contextos de chamada',
+      'Escrevo e explico uma closure funcional',
+      'Escrevo código assíncrono com async/await tratando erros (try/catch)',
+      'Explico o Event Loop e preveja a ordem de execução de um trecho de código',
+      'Uso map, filter e reduce fluentemente, sem recorrer sempre a for',
+      'Explico herança prototípica e o que class realmente é em JS'
+    ]},
+  { id:'f4', group:'Stack Backend', label:'Fase 4', title:'TypeScript',
+    obj:'Sistema de tipos como ferramenta de prevenção de bugs, não burocracia — o padrão de fato do backend JS profissional.',
+    file:'modulo-04.md',
+    concepts:['Interfaces vs. Types','Union Types e Type Narrowing','Generics','Partial/Pick/Omit/Record','tsconfig strict'],
+    market:'TypeScript é requisito, não diferencial, na maioria das vagas sérias de backend JS em 2026.',
+    items:[
+      'Explico por que tipagem estática reduz uma classe de bugs em produção',
+      'Escrevo interfaces e types corretamente, sabendo quando usar cada um',
+      'Uso union types e Type Narrowing com segurança',
+      'Escrevo funções e estruturas genéricas simples',
+      'Uso Partial, Pick, Omit e Record fluentemente',
+      'Explico por que evitar any e quando usar unknown',
+      'Configuro um tsconfig.json com modo strict'
+    ]},
+  { id:'f5', group:'Stack Backend', label:'Fase 5', title:'HTML, CSS & Acessibilidade',
+    obj:'Construir interfaces semânticas, responsivas e acessíveis — o suficiente para entender o consumidor da sua API.',
+    file:'modulo-05.md',
+    concepts:['HTML semântico','Box model','Flexbox e Grid','Mobile-first','Acessibilidade (WCAG)'],
+    market:'Muitas vagas "Backend Junior" ainda pedem HTML/CSS básico, especialmente em startups menores.',
+    items:[
+      'Escrevo HTML semântico, sem abusar de <div>',
+      'Aplico o box model corretamente, incluindo box-sizing: border-box',
+      'Construo layouts com Flexbox fluentemente',
+      'Construo layouts com CSS Grid para estruturas de página',
+      'Escrevo CSS responsivo mobile-first',
+      'Aplico critérios básicos de acessibilidade (contraste, alt, label, teclado)'
+    ]},
+  { id:'f6', group:'Stack Backend', label:'Fase 6', title:'Git, GitHub & Fluxo Profissional',
+    obj:'Colaborar sem gerar atrito: branches, commits, conflitos e Pull Requests do jeito que um time espera.',
+    file:'modulo-06.md',
+    concepts:['3 estados do Git','Branches e merge','Conventional Commits','Rebase vs. Merge','Pull Requests e Code Review'],
+    market:'Seu primeiro Pull Request é avaliado tanto pelo código quanto pela forma como você usou Git.',
+    items:[
+      'Explico os três estados de um arquivo no Git',
+      'Crio, troco e mesclo branches confortavelmente',
+      'Resolvo conflitos de merge entendendo ambas as mudanças',
+      'Escrevo mensagens de commit seguindo Conventional Commits',
+      'Explico a diferença entre rebase e merge, e quando usar cada um',
+      'Abro um Pull Request pequeno e bem descrito',
+      'Dou e recebo feedback de code review de forma construtiva'
+    ]},
+  { id:'f7', group:'Stack Backend', label:'Fase 7', title:'Node.js, APIs REST & Autenticação',
+    obj:'Construir sistemas que servem dados de verdade: rotas, validação, autenticação segura e arquitetura em camadas.',
+    file:'modulo-07.md',
+    concepts:['Convenções REST e status codes','Validação (Zod)','JWT em cookie HttpOnly','Sessão vs. Token','Arquitetura em camadas','NestJS e DI'],
+    market:'"Construa uma API REST com autenticação" é um dos testes técnicos mais comuns do mercado brasileiro.',
+    items:[
+      'Explico o ciclo completo de uma requisição HTTP (rota → middleware → handler → resposta)',
+      'Construo uma API REST seguindo convenções corretas de verbo, URL e status code',
+      'Valido dados de entrada com Zod ou class-validator',
+      'Implemento autenticação via JWT com armazenamento seguro (cookie HttpOnly)',
+      'Escrevo middlewares customizados (autenticação, erro, logging)',
+      'Explico a diferença entre sessão e token, e quando usar cada um',
+      'Estruturo uma API em camadas (controller → service → repository)',
+      'Explico a arquitetura modular do NestJS e injeção de dependência'
+    ]},
+  { id:'f8', group:'Stack Backend', label:'Fase 8', title:'Banco de Dados',
+    obj:'Modelar dados corretamente e escolher a ferramenta certa (SQL vs NoSQL, ORM vs SQL puro) com justificativa técnica.',
+    file:'modulo-08.md',
+    concepts:['SQL e JOINs','Normalização (1FN-3FN)','Índices e EXPLAIN ANALYZE','ACID e transações','Prisma','Redis'],
+    market:'Modelagem de dados sólida é um diferencial real — muitos autodidatas pulam direto para ORM sem entender o SQL por baixo.',
+    items:[
+      'Escrevo SQL de CRUD completo, com JOINs corretos',
+      'Modelo um banco normalizado (até 3FN) para um domínio de negócio dado',
+      'Explico quando um índice ajuda e uso EXPLAIN ANALYZE para diagnosticar',
+      'Explico ACID e uso transações em operações multi-etapa',
+      'Uso Prisma entendendo o SQL gerado por baixo',
+      'Explico quando MongoDB é justificado (e quando não é)',
+      'Implemento cache básico com Redis'
+    ]},
+  { id:'f9', group:'Stack Backend', label:'Fase 9', title:'Testes Automatizados',
+    obj:'Escrever testes que realmente protegem contra regressão — não apenas "cobertura por cobertura".',
+    file:'modulo-09.md',
+    concepts:['Pirâmide de testes','Mocks/Stubs/Spies','TDD (Red-Green-Refactor)','Cobertura vs. qualidade'],
+    market:'Escrever testes para código novo já é expectativa mínima, não diferencial, em times de engenharia modernos.',
+    items:[
+      'Explico a pirâmide de testes e por que a proporção importa',
+      'Escrevo testes unitários com Jest/Vitest usando estrutura AAA',
+      'Uso mocks para isolar dependências externas em testes unitários',
+      'Escrevo testes de integração para endpoints de API',
+      'Aplico o ciclo TDD (Red-Green-Refactor) em um exercício prático',
+      'Explico por que 100% de cobertura não é sinônimo de qualidade'
+    ]},
+  { id:'f10', group:'Engenharia & Carreira', label:'Fase 10', title:'Arquitetura de Software',
+    obj:'Transformar "código que funciona" em "código que sobrevive": SOLID, Clean Code, padrões de projeto.',
+    file:'modulo-10.md',
+    concepts:['Clean Code','SOLID (5 princípios)','Repository/Factory/DI','Clean Architecture','Entidade vs. Value Object'],
+    market:'A qualidade estrutural do código de portfólio é frequentemente avaliada tanto quanto a funcionalidade em si.',
+    items:[
+      'Escrevo código seguindo Clean Code (nomes claros, funções pequenas)',
+      'Explico cada um dos 5 princípios SOLID com exemplo próprio',
+      'Implemento Repository, Factory e Dependency Injection num projeto real',
+      'Estruturo uma API em camadas corretamente',
+      'Explico a regra de dependência da Clean Architecture',
+      'Explico a diferença entre Entidade e Value Object',
+      'Reconheço quando uma arquitetura está sendo overengineered'
+    ]},
+  { id:'f11', group:'Engenharia & Carreira', label:'Fase 11', title:'Cloud, Docker & CI/CD',
+    obj:'Levar o código da sua máquina até a internet, de forma automatizada e reproduzível.',
+    file:'modulo-11.md',
+    concepts:['Docker e Dockerfile','Docker Compose','CI vs. CD','GitHub Actions','Deploy real (Render/Railway/Vercel)'],
+    market:'Ter deploy real e CI/CD configurado é um dos maiores diferenciadores de portfólio entre candidatos.',
+    items:[
+      'Escrevo um Dockerfile eficiente com cache de camadas otimizado',
+      'Orquestro múltiplos serviços localmente com Docker Compose',
+      'Explico a diferença entre CI e CD',
+      'Configuro um pipeline de GitHub Actions com lint, testes e build',
+      'Gerencio variáveis de ambiente sem expor segredos',
+      'Faço deploy real em Render, Railway ou Vercel',
+      'Explico os fundamentos de EC2, S3 e RDS'
+    ]},
+  { id:'f12', group:'Engenharia & Carreira', label:'Fase 12', title:'Segurança de Aplicações',
+    obj:'Não introduzir as vulnerabilidades mais comuns e mais exploradas do mundo real.',
+    file:'modulo-12.md',
+    concepts:['Hash de senha (bcrypt)','SQL Injection','XSS e CSRF','Rate Limiting','HTTPS'],
+    market:'Perguntas sobre OWASP Top 10 são comuns até em entrevistas Junior, especialmente em fintechs.',
+    items:[
+      'Explico por que senha usa hash (bcrypt/argon2), nunca criptografia reversível',
+      'Previno SQL Injection usando queries parametrizadas/ORM',
+      'Explico XSS e como preveni-lo (sanitização, cookies HttpOnly)',
+      'Explico CSRF e suas defesas (SameSite, tokens CSRF)',
+      'Implemento rate limiting em rotas sensíveis',
+      'Explico por que HTTPS é obrigatório em produção',
+      'Aplico o princípio de defesa em profundidade num sistema real'
+    ]},
+  { id:'f13', group:'Engenharia & Carreira', label:'Fase 13', title:'Projetos Profissionais',
+    obj:'Integrar tudo em projetos completos que simulam problemas reais de empresas, não tutoriais reproduzidos.',
+    file:'modulo-13.md',
+    concepts:['Requisitos funcionais e não funcionais','Regras de negócio combináveis','Processamento assíncrono','Multi-tenancy'],
+    market:'Recrutadores avaliam portfólio pela complexidade de decisão, não pela quantidade de projetos.',
+    items:[
+      'Transformo uma descrição de negócio em requisitos funcionais e não funcionais',
+      'Justifico por escrito as decisões de arquitetura e stack de um projeto',
+      'Modelo regras de negócio combináveis sem acoplamento excessivo',
+      'Implemento processamento assíncrono desacoplado da requisição HTTP',
+      'Implemento isolamento de dados multi-tenant'
+    ]},
+  { id:'f14', group:'Engenharia & Carreira', label:'Fase 14', title:'Portfólio',
+    obj:'Transformar trabalho técnico em algo que comunica competência em menos de 2 minutos.',
+    file:'modulo-14.md',
+    concepts:['Estrutura de README eficaz','GIFs demonstrativos','ADR (Architecture Decision Record)','Perfil GitHub como vitrine'],
+    market:'Recrutadores frequentemente decidem avançar um candidato só de olhar o README, antes de rodar o código.',
+    items:[
+      'Escrevo um README completo (problema, arquitetura, decisões, como rodar)',
+      'Gravo e incluo um GIF demonstrativo em um projeto',
+      'Escrevo pelo menos um ADR documentando uma decisão técnica real',
+      'Organizo meu perfil GitHub com pinned repos e README de perfil'
+    ]},
+  { id:'f15', group:'Engenharia & Carreira', label:'Fase 15', title:'Currículo & Primeira Vaga',
+    obj:'Fechar o ciclo: comunicar tudo isso para o mercado e conquistar a primeira oportunidade.',
+    file:'modulo-15.md',
+    concepts:['Currículo orientado a impacto','LinkedIn ativo','Estrutura de entrevistas técnicas','Onde buscar vagas reais'],
+    market:'É o momento em que tudo se converte em oportunidade real — currículo genérico é o erro mais comum.',
+    items:[
+      'Escrevo um currículo de uma página, orientado a impacto',
+      'Mantenho um LinkedIn ativo e coerente com GitHub e portfólio',
+      'Tenho pelo menos uma contribuição em Open Source',
+      'Me sinto confortável verbalizando raciocínio técnico em voz alta',
+      'Tenho respostas preparadas, com exemplos reais, para perguntas comportamentais'
+    ]},
+
+  /* ---------- Anexo B: Portfólio Final (10 projetos) ---------- */
+  { id:'p1', group:'Portfólio Final', label:'Projeto 1', title:'CLI de Gestão de Tarefas',
+    obj:'Fundamentos + Git aplicados: ferramenta de produtividade com persistência em arquivo, sem frameworks.',
+    file:'portfolio-final.md',
+    concepts:['Node.js + TypeScript','Estruturas de dados (Fase 2)','Persistência em arquivo JSON'],
+    market:'Pergunta de entrevista: "Como você garante que os dados não sejam corrompidos se o processo for interrompido no meio de uma escrita?"',
+    items:[
+      'CRUD completo de tarefas implementado',
+      'Priorização e persistência em arquivo funcionando entre execuções',
+      'Testes unitários da camada core, isolando a camada de arquivo com mock/fake',
+      'Tratamento de erro para arquivo corrompido ou inexistente',
+      'README com GIF do terminal em uso'
+    ]},
+  { id:'p2', group:'Portfólio Final', label:'Projeto 2', title:'API de Controle Financeiro Pessoal',
+    obj:'Node/APIs + Banco de Dados + Segurança aplicados: módulo real de fintech com consistência financeira.',
+    file:'portfolio-final.md',
+    concepts:['NestJS/Express + PostgreSQL','JWT em cookie HttpOnly','Transações ACID'],
+    market:'Pergunta de entrevista: "O que aconteceria se duas transações fossem criadas simultaneamente — como você garante consistência?"',
+    items:[
+      'Autenticação e CRUD de transações implementados',
+      'Saldo sempre calculado (nunca armazenado diretamente)',
+      'Toda operação que afeta saldo é transacional (ACID)',
+      'Testes unitários (cálculo/relatório) + integração (fluxo completo)',
+      'Deploy real com PostgreSQL gerenciado'
+    ]},
+  { id:'p3', group:'Portfólio Final', label:'Projeto 3', title:'E-commerce: Gestão de Pedidos',
+    obj:'Projeto central de Backend: catálogo, carrinho, pedidos e estoque com Clean Architecture.',
+    file:'portfolio-final.md',
+    concepts:['Clean Architecture','Repository Pattern','Prisma + PostgreSQL','Papéis de acesso'],
+    market:'Pergunta de entrevista: "Como você evita que dois pedidos simultâneos vendam o último item em estoque duas vezes?"',
+    items:[
+      'Catálogo, carrinho, pedido e controle de estoque implementados',
+      'Baixa de estoque atômica e segura sob concorrência',
+      'Papéis de acesso (cliente/admin) funcionando corretamente',
+      'Zero lógica de negócio dentro de controllers',
+      'Testes unitários (regras de estoque/preço) + integração do checkout',
+      'Containerizado, com deploy real e CI/CD'
+    ]},
+  { id:'p4', group:'Portfólio Final', label:'Projeto 4', title:'Sistema de Reservas com Concorrência',
+    obj:'Problema clássico de concorrência de recursos, com garantia via transação/constraint de banco.',
+    file:'portfolio-final.md',
+    concepts:['Constraint de banco (EXCLUDE)','Lock otimista/pessimista','Redis (fila de espera)'],
+    market:'Pergunta de entrevista: "Como você testou que o sistema realmente previne dupla reserva sob concorrência?"',
+    items:[
+      'Criação de reserva com verificação de conflito de horário',
+      'Cancelamento com política de reembolso por tempo',
+      'Fila de espera automática quando não há vaga',
+      'Teste de concorrência comprova que dupla reserva nunca ocorre',
+      'ADR documentando a estratégia de lock/constraint escolhida'
+    ]},
+  { id:'p5', group:'Portfólio Final', label:'Projeto 5', title:'Motor de Precificação Dinâmica',
+    obj:'Regras de negócio combináveis sem acoplamento — Strategy Pattern e Open/Closed Principle na prática.',
+    file:'portfolio-final.md',
+    concepts:['Strategy Pattern','Open/Closed Principle','TypeScript puro'],
+    market:'Pergunta de entrevista: "Se amanhã surgir uma nova regra de imposto regional, o que muda no seu código?"',
+    items:[
+      'Desconto por volume, cupom, taxa de pagamento e frete implementados e combináveis',
+      'Nova regra pode ser adicionada sem alterar código existente (OCP validado)',
+      'Cobertura de testes alta na lógica de precificação',
+      'Casos de borda testados (desconto que zera preço, cupom expirado)',
+      'README explica como adicionar uma nova regra sem tocar no código existente'
+    ]},
+  { id:'p6', group:'Portfólio Final', label:'Projeto 6', title:'Processamento Assíncrono com Filas',
+    obj:'API produtora + Worker consumidor, desacoplando operações demoradas da requisição HTTP.',
+    file:'portfolio-final.md',
+    concepts:['BullMQ + Redis','Processos separados (API/Worker)','Retry com backoff'],
+    market:'Pergunta de entrevista: "O que acontece se o Worker cair no meio do processamento de um job?"',
+    items:[
+      'API (produtor) e Worker (consumidor) rodando como processos separados',
+      'Retry com backoff implementado para jobs que falham',
+      'Endpoint de consulta de status (pendente/processando/concluído/falho)',
+      'Teste de integração do fluxo completo: enfileira → processa → status final',
+      'Docker Compose orquestrando API + Worker + Redis'
+    ]},
+  { id:'p7', group:'Portfólio Final', label:'Projeto 7', title:'API Multi-tenant SaaS',
+    obj:'Modelo de todo SaaS B2B: organizações isoladas com RBAC — arquitetura + segurança no limite.',
+    file:'portfolio-final.md',
+    concepts:['Row-Level Security','RBAC','JWT com claim de organização'],
+    market:'Pergunta de entrevista: "Como você garante que um bug de programação não vaze dados entre organizações?"',
+    items:[
+      'Isolamento de dados entre organizações garantido (aplicação + banco)',
+      'RBAC (admin/editor/visualizador) implementado corretamente',
+      'Teste de segurança comprova que não há vazamento de dados entre tenants',
+      'ADR sobre a estratégia de isolamento escolhida (schema, coluna ou RLS)',
+      'Deploy real com banco de dados gerenciado'
+    ]},
+  { id:'p8', group:'Portfólio Final', label:'Projeto 8', title:'Plataforma de API Pública',
+    obj:'API as a Service: gestão de chaves, planos e rate limiting distribuído.',
+    file:'portfolio-final.md',
+    concepts:['Rate limiting distribuído (Redis)','Token bucket / sliding window','Gestão de API keys'],
+    market:'Pergunta de entrevista: "Por que rate limiting em memória local não funciona com múltiplas instâncias do servidor?"',
+    items:[
+      'Geração e revogação de API keys funcionando',
+      'Rate limiting distribuído via Redis (não em memória local)',
+      'Planos com limites diferentes implementados e testados',
+      'Teste de carga valida o rate limit sob requisições concorrentes',
+      'README explica o algoritmo de rate limiting escolhido e os trade-offs'
+    ]},
+  { id:'p9', group:'Portfólio Final', label:'Projeto 9', title:'Notificações em Tempo Real',
+    obj:'WebSockets, reconexão confiável e Pub/Sub — comunicação em tempo real de verdade.',
+    file:'portfolio-final.md',
+    concepts:['WebSockets (Socket.io)','Redis Pub/Sub','Reconexão e buffer de mensagens'],
+    market:'Pergunta de entrevista: "Como você garante que uma notificação chega ao usuário certo se ele está em outra instância?"',
+    items:[
+      'Conexão WebSocket com envio direcionado a usuário(s) específico(s)',
+      'Histórico de notificações persistido, com status de leitura',
+      'Reconexão automática testada, sem perda de notificações',
+      'Redis Pub/Sub usado para funcionar com múltiplas instâncias do servidor',
+      'Deploy real em plataforma compatível com WebSocket persistente'
+    ]},
+  { id:'p10', group:'Portfólio Final', label:'Projeto 10', title:'Sistema com Observabilidade (síntese)',
+    obj:'Projeto-síntese: pega o Projeto 3 ou 7 e adiciona logs, health check e resiliência a falha.',
+    file:'portfolio-final.md',
+    concepts:['Logs estruturados (pino)','Health checks','Degradação graciosa','Múltiplos ADRs'],
+    market:'Pergunta de entrevista: "Como você saberia, em produção, que algo deu errado antes que um usuário reclamasse?"',
+    items:[
+      'Logs estruturados implementados em toda a aplicação',
+      'Endpoint /health verificando conectividade com banco/Redis',
+      'Degradação graciosa testada (sistema principal segue de pé mesmo com dependência fora)',
+      'Pipeline de CI/CD completo, com o sistema rodando publicamente',
+      'README com múltiplos ADRs e demonstração em vídeo/GIF'
+    ]},
+
+  /* ---------- Anexo C: Plano de Empregabilidade ---------- */
+  { id:'e1', group:'Empregabilidade', label:'Anexo C', title:'Currículo',
+    obj:'Rascunho v1, fórmula de impacto por projeto, revisão técnica e teste de compatibilidade com ATS.',
+    file:'plano-empregabilidade.md',
+    concepts:['Fórmula de impacto por projeto','Checklist técnico/ATS','Versão PT e EN'],
+    market:'Currículo genérico com lista solta de tecnologias é o erro mais comum — o que diferencia é impacto e contexto.',
+    items:[
+      'Fiz o brain dump de tudo que já construí e estudei',
+      'Escrevi o rascunho v1 usando o template de uma página',
+      'Apliquei a fórmula de impacto em cada projeto listado',
+      'Revisei ortografia, links e formatação (checklist técnico completo)',
+      'Testei compatibilidade com ATS (colei o PDF em um editor de texto simples)',
+      'Tenho versão em português e em inglês'
+    ]},
+  { id:'e2', group:'Empregabilidade', label:'Anexo C', title:'GitHub',
+    obj:'Perfil configurado como vitrine: foto, bio, README de perfil e pinned repos organizados.',
+    file:'plano-empregabilidade.md',
+    concepts:['README de perfil','Pinned repos com topics','Organização estudo vs. portfólio'],
+    market:'Seu perfil GitHub é, na prática, o currículo técnico que muitos recrutadores olham primeiro.',
+    items:[
+      'Foto de perfil real e profissional configurada',
+      'Bio preenchida com cargo desejado + stack principal',
+      'README de perfil criado (repositório usuario/usuario)',
+      '4 a 6 repositórios fixados, cada um com descrição e topics preenchidos',
+      'Repositórios de estudo agrupados; projetos de portfólio individualizados',
+      'Gráfico de contribuições com atividade real e consistente'
+    ]},
+  { id:'e3', group:'Empregabilidade', label:'Anexo C', title:'LinkedIn',
+    obj:'Setup completo (headline, Sobre, Destaques) e rotina semanal de manutenção ativa.',
+    file:'plano-empregabilidade.md',
+    concepts:['Headline (cargo + stack)','Seção "Sobre"','Rotina semanal de postagem'],
+    market:'Recrutadores técnicos ativamente buscam candidatos por palavras-chave e observam atividade recente.',
+    items:[
+      'Foto e capa configuradas; headline com fórmula cargo + stack',
+      'Seção "Sobre" escrita seguindo o template',
+      'Seção "Destaques" com projeto, GitHub e certificados relevantes',
+      'Projetos listados mesmo sem experiência formal prévia',
+      'Rotina semanal rodando: 1 post + comentários + novas conexões'
+    ]},
+  { id:'e4', group:'Empregabilidade', label:'Anexo C', title:'Candidaturas',
+    obj:'Sistema de tracking, mensagem personalizada por vaga, volume e follow-up.',
+    file:'plano-empregabilidade.md',
+    concepts:['Sistema de tracking (kanban)','Mensagem personalizada','Follow-up após 7-10 dias'],
+    market:'Buscar a primeira vaga geralmente exige volume real: 30-80 candidaturas ao longo do processo.',
+    items:[
+      'Sistema de tracking de candidaturas criado (kanban) e em uso',
+      'Fontes de vagas mapeadas (portais + páginas de carreira das empresas-alvo)',
+      'Template de mensagem de apresentação personalizada pronto',
+      'Meta semanal de candidaturas definida e sendo cumprida',
+      'Rotina de follow-up após 7-10 dias úteis sem resposta'
+    ]},
+  { id:'e5', group:'Empregabilidade', label:'Anexo C', title:'Networking',
+    obj:'Comunidades, scripts de conexão, primeira contribuição em Open Source e conversas informativas.',
+    file:'plano-empregabilidade.md',
+    concepts:['Comunidades de tecnologia','Script de conexão no LinkedIn','Primeira contribuição Open Source'],
+    market:'Indicação é, estatisticamente, um dos caminhos mais eficazes de conseguir a primeira entrevista.',
+    items:[
+      'Entrei em pelo menos 2 comunidades de tecnologia ativas',
+      'Script de conexão no LinkedIn pronto e em uso, sem pedir vaga direto',
+      'Fiz pelo menos uma contribuição em Open Source (good first issue)',
+      'Realizei pelo menos uma "conversa informativa" de 15-20 min',
+      'Tenho uma rotina semanal de networking definida (dias e tempo)'
+    ]},
+];
+PHASES.forEach((p, i)=>{ p.core = i < 16; }); /* apenas as 16 fases originais entram no cálculo de cronograma (Anexo A) */
+const STORAGE_KEY = 'dreamy-neon-trilha-progresso-v1';
+let state = {};
+try{
+  const saved = localStorage.getItem(STORAGE_KEY);
+  state = saved ? JSON.parse(saved) : {};
+}catch(e){ state = {}; }
+
+function save(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){ /* modo sem persistência */ }
+}
+function isChecked(phaseId, idx){ return !!(state[phaseId] && state[phaseId][idx]); }
+function setChecked(phaseId, idx, val){
+  if(!state[phaseId]) state[phaseId] = {};
+  state[phaseId][idx] = val;
+  save();
+  renderAll();
+}
+
+/* ---------- Cálculos ---------- */
+function phaseCounts(phase){
+  const total = phase.items.length;
+  let done = 0;
+  for(let i=0;i<total;i++) if(isChecked(phase.id,i)) done++;
+  return {done, total};
+}
+function overallCounts(){
+  let done=0, total=0, phasesDone=0;
+  PHASES.forEach(p=>{
+    const c = phaseCounts(p);
+    done += c.done; total += c.total;
+    if(c.done === c.total) phasesDone++;
+  });
+  return {done, total, phasesDone, phasesTotal: PHASES.length};
+}
+
+let currentIndex = 0;
+
+/* ---------- Render ---------- */
+function renderSidebar(){
+  const groups = { 'Fundamentos':'navFund', 'Stack Backend':'navStack', 'Engenharia & Carreira':'navEng', 'Portfólio Final':'navProjects', 'Empregabilidade':'navEmpreg' };
+  Object.values(groups).forEach(id=> document.getElementById(id).innerHTML = '');
+
+  PHASES.forEach((p, idx)=>{
+    const c = phaseCounts(p);
+    const pct = c.total ? Math.round((c.done/c.total)*100) : 0;
+    const grad = GRADIENTS[idx % GRADIENTS.length];
+    const el = document.createElement('div');
+    el.className = 'navitem' + (idx===currentIndex ? ' active' : '');
+    el.onclick = ()=>{ currentIndex = idx; renderAll(); };
+    el.innerHTML = `
+      <div class="navdot" style="background:${SOLID[grad]}"></div>
+      <div class="navtext">
+        <div class="t">${p.label} · ${p.title}</div>
+        <div class="navbar-mini"><i style="width:${pct}%; background:${GRADIENT_CSS[grad]}"></i></div>
+      </div>
+      <div class="navpct">${pct}%</div>
+    `;
+    document.getElementById(groups[p.group]).appendChild(el);
+  });
+}
+
+function renderHeroAndStats(){
+  const o = overallCounts();
+  const pct = o.total ? Math.round((o.done/o.total)*100) : 0;
+  document.getElementById('overallDone').textContent = `${o.done}/${o.total}`;
+  document.getElementById('ringOverall').style.setProperty('--pct', pct + '%');
+  document.getElementById('ringOverallPct').textContent = pct + '%';
+  document.getElementById('statPhasesDone').textContent = `${o.phasesDone}/${o.phasesTotal}`;
+  document.getElementById('statItemsDone').textContent = `${o.done}/${o.total}`;
+  document.getElementById('statPct').textContent = pct + '%';
+}
+
+function renderPhase(){
+  const p = PHASES[currentIndex];
+  const grad = GRADIENTS[currentIndex % GRADIENTS.length];
+  const c = phaseCounts(p);
+  const pct = c.total ? Math.round((c.done/c.total)*100) : 0;
+
+  const badge = document.getElementById('phaseBadge');
+  badge.textContent = p.label;
+  badge.style.background = GRADIENT_CSS[grad];
+
+  document.getElementById('phaseTitle').textContent = p.title;
+  document.getElementById('phaseObj').textContent = p.obj;
+  document.getElementById('phaseBarFill').style.width = pct + '%';
+  document.getElementById('phaseBarFill').style.background = GRADIENT_CSS[grad];
+
+  const conceptsBox = document.getElementById('phaseConcepts');
+  conceptsBox.innerHTML = '';
+  (p.concepts || []).forEach(c=>{
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.textContent = c;
+    conceptsBox.appendChild(chip);
+  });
+  document.getElementById('phaseMarket').textContent = p.market || '—';
+  document.getElementById('phaseFile').textContent = p.file || '—';
+
+  const list = document.getElementById('checklist');
+  list.innerHTML = '';
+  p.items.forEach((text, idx)=>{
+    const checked = isChecked(p.id, idx);
+    const row = document.createElement('div');
+    row.className = 'check-row' + (checked ? ' done' : '');
+    const switchId = `sw-${p.id}-${idx}`;
+    row.innerHTML = `
+      <div class="switch">
+        <input type="checkbox" id="${switchId}" ${checked ? 'checked' : ''}>
+        <label for="${switchId}"></label>
+      </div>
+      <div class="check-text">${text}</div>
+    `;
+    row.querySelector('input').addEventListener('change', (e)=> setChecked(p.id, idx, e.target.checked));
+    list.appendChild(row);
+  });
+
+  document.getElementById('btnPrev').disabled = currentIndex === 0;
+  document.getElementById('btnPrev').style.opacity = currentIndex === 0 ? 0.4 : 1;
+  document.getElementById('btnNext').textContent = currentIndex === PHASES.length-1 ? 'Concluído ✦' : 'Próxima fase →';
+}
+
+function renderAll(){
+  renderSidebar();
+  renderHeroAndStats();
+  renderPhase();
+}
+
+/* ---------- Ações ---------- */
+function gotoOffset(off){
+  currentIndex = Math.min(PHASES.length-1, Math.max(0, currentIndex+off));
+  renderAll();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function markAllCurrentPhase(){
+  const p = PHASES[currentIndex];
+  p.items.forEach((_, idx)=> setChecked(p.id, idx, true));
+}
+function resetProgress(){
+  if(!confirm('Isso vai apagar todo o progresso salvo neste navegador. Continuar?')) return;
+  state = {};
+  save();
+  renderAll();
+}
+function exportProgress(){
+  const o = overallCounts();
+  const lines = [`Progresso — Trilha Software Engineer Junior (${o.done}/${o.total} itens, ${o.phasesDone}/${o.phasesTotal} fases)`, ''];
+  PHASES.forEach(p=>{
+    const c = phaseCounts(p);
+    lines.push(`## ${p.label} — ${p.title} (${c.done}/${c.total})`);
+    p.items.forEach((text, idx)=>{
+      lines.push(`${isChecked(p.id, idx) ? '[x]' : '[ ]'} ${text}`);
+    });
+    lines.push('');
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/markdown'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'meu-progresso-trilha.md';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ---------- Slider de ritmo ---------- */
+const PACE = [
+  { label:'15h / semana', weeksPerPhaseAvg: 3.9 },
+  { label:'25h / semana', weeksPerPhaseAvg: 2.4 },
+  { label:'40h / semana', weeksPerPhaseAvg: 1.4 }
+];
+function renderPace(){
+  const idx = parseInt(document.getElementById('paceSlider').value, 10);
+  const pace = PACE[idx];
+  document.getElementById('paceValue').textContent = pace.label;
+  const corePhases = PHASES.filter(p=>p.core);
+  const coreDone = corePhases.filter(p=>{ const c = phaseCounts(p); return c.done === c.total; }).length;
+  const remainingPhases = corePhases.length - coreDone;
+  const weeksLeft = Math.round(remainingPhases * pace.weeksPerPhaseAvg);
+  document.getElementById('paceResult').innerHTML =
+    `Faltam <b>${remainingPhases}</b> das 16 fases do guia (Fases 0-15). Nesse ritmo, cerca de <b>${weeksLeft} semanas</b> até fechar essa parte — o Portfólio Final e o plano de empregabilidade rodam em paralelo.`;
+}
+document.getElementById('paceSlider').addEventListener('input', renderPace);
+
+/* ---------- Tema claro/escuro ---------- */
+const THEME_KEY = 'dreamy-neon-theme';
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeIcon').textContent = theme === 'dark' ? '☀' : '☾';
+}
+function initTheme(){
+  let theme = null;
+  try{ theme = localStorage.getItem(THEME_KEY); }catch(e){}
+  if(!theme){
+    theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  applyTheme(theme);
+}
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+});
+
+/* ---------- Init ---------- */
+initTheme();
+renderAll();
+renderPace();
+</script>
+</body>
+</html>
