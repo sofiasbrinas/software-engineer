@@ -75,7 +75,7 @@ software-engineer/
 
 | # | Fase | Status | Notas / Exercícios |
 |---|---|:---:|---|
-| 0 | Mentalidade de Engenharia | ⬜ | [`docs/fase-00-mentalidade/`](docs/fase-00-mentalidade/) |
+| 0 | Mentalidade de Engenharia | ✅ | [`docs/fase-00-mentalidade/`](docs/fase-00-mentalidade/) |
 | 1 | Fundamentos da Computação | ⬜ | [`docs/fase-01-fundamentos-computacao/`](docs/fase-01-fundamentos-computacao/) |
 | 2 | Lógica de Programação | ⬜ | [`docs/fase-02-logica-programacao/`](docs/fase-02-logica-programacao/) |
 | 3 | JavaScript Moderno | ⬜ | [`docs/fase-03-javascript/`](docs/fase-03-javascript/) |

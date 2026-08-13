@@ -1,0 +1,5 @@
+# 📝 Active Recall
+
+Active Recall é um método de estudo que busca exercitar o cérebro por meio da **recuperação ativa** de informações e conexões formadas durante o processo de aprendizagem. A recordação ativa surge como uma estratégia que ajuda a combater os efeitos da **curva do esquecimento** e a consolidar os conhecimentos na **memória de longo prazo**.
+
+Algumas formas de incorporar a recordação ativa são redigir **resumos pós-aula**, utilizando apenas a memória do que foi estudado, responder a **quizzes**, fazer **simulados** ou utilizar **flashcards**. É importante utilizar métodos que, de fato, exijam algum exercício de recuperação e evitar meios que apenas promovam o reconhecimento passivo ou transmitam uma falsa percepção de compreensão, sem exigir que o cérebro recupere e processe efetivamente o conhecimento.
