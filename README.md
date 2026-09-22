@@ -215,7 +215,7 @@ Snapshot rápido (atualize manualmente ou copie a exportação do `trilha-progre
 ## 📫 Contato
 
 - LinkedIn: [linkedin.com/in/sofia-sabrina-silva](https://www.linkedin.com/in/sofia-sabrina-silva/)
-- E-mail: seu-email@exemplo.com
+- E-mail: sofiasabrinasilva@gmail.com
 
 ---
 
