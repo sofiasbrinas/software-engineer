@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dreamy Neon · Sprint de 12 Semanas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo: #0D0B1A;
+    --midnight: #1B1233;
+    --violet: #5A4CFF;
+    --violet2: #8A63FF;
+    --rose: #FF6EA7;
+    --sunset: #FFB36B;
+    --lilac: #E9E4FF;
+    --milk: #FAF7FF;
+
+    --ink: #0D0B1A;
+    --ink-soft: #6E6B85;
+    --paper: #FAF7FF;
+    --panel: #FFFFFF;
+    --line: rgba(27,18,51,0.10);
+    --tint: #E9E4FF;
+    --switch-off: #FFE1EE;
+    --btn2-bg: #FFFFFF;
+    --glow-1: rgba(90,76,255,0.16);
+    --glow-2: rgba(255,110,167,0.14);
+    --card-shadow: rgba(27,18,51,0.05);
+
+    --g-flare:    linear-gradient(135deg, #FFB36B 0%, #FF6EA7 100%);
+    --g-dream:    linear-gradient(135deg, #5A4CFF 0%, #FF6EA7 100%);
+    --g-electric: linear-gradient(135deg, #5A4CFF 0%, #FFB36B 100%);
+    --g-bloom:    linear-gradient(135deg, #FF6EA7 0%, #E9E4FF 100%);
+    --g-dusk:     linear-gradient(135deg, #5A4CFF 0%, #0D0B1A 100%);
+    --g-hero:     linear-gradient(120deg, #1B1233 0%, #5A4CFF 32%, #FF6EA7 68%, #FFB36B 100%);
+    --g-accent:   linear-gradient(90deg, #5A4CFF 0%, #FF6EA7 55%, #FFB36B 100%);
+    --g-gold:     linear-gradient(135deg, #FFB36B 0%, #FF6EA7 45%, #FF6EA7 100%);
+  }
+
+  html[data-theme="dark"]{
+    --ink: #FAF7FF;
+    --ink-soft: #B7B4C9;
+    --paper: #0D0B1A;
+    --panel: #1B1233;
+    --line: rgba(255,247,230,0.09);
+    --tint: rgba(90,76,255,0.18);
+    --switch-off: rgba(255,255,255,0.14);
+    --btn2-bg: #1B1233;
+    --glow-1: rgba(90,76,255,0.28);
+    --glow-2: rgba(255,110,167,0.20);
+    --card-shadow: rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+      radial-gradient(ellipse at 8% 0%, var(--glow-1) 0%, transparent 55%),
+      radial-gradient(ellipse at 92% 8%, var(--glow-2) 0%, transparent 50%),
+      var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .25s ease, color .25s ease;
+  }
+  .sparkle{ display:inline-block; position:relative; top:-0.05em; }
+
+  /* ---------- Layout shell ---------- */
+  .shell{ display:grid; grid-template-columns: 280px 1fr; min-height:100vh; }
+  @media (max-width: 900px){
+    .shell{ grid-template-columns: 1fr; }
+    .sidebar{ position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); }
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{ background: var(--panel); border-right:1px solid var(--line); padding:24px 18px 40px; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  .brand{ display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+  .brand-mark{ width:32px; height:32px; border-radius:9px; background: var(--violet); display:flex; align-items:center; justify-content:center; font-size:15px; color:#FFB36B; box-shadow:0 4px 14px rgba(90,76,255,0.35); }
+  .brand-title{ font-weight:800; font-size:14.5px; letter-spacing:0.02em; flex:1; }
+  .theme-toggle{ width:30px; height:30px; border-radius:9px; flex:none; border:1px solid var(--line); background:var(--panel); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px; color:var(--ink); }
+  .theme-toggle:hover{ background: var(--tint); }
+  .brand-sub{ font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); margin:2px 0 18px 42px; }
+
+  .xp-wrap{ background: var(--tint); border-radius:16px; padding:14px; margin-bottom:18px; }
+  .xp-level{ font-size:11.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; }
+  .xp-bar{ height:8px; border-radius:6px; background:rgba(27,18,51,0.08); overflow:hidden; margin-bottom:6px; }
+  .xp-bar > i{ display:block; height:100%; background: var(--sunset); border-radius:6px; transition:width .3s ease; }
+  .xp-caption{ font-size:10.5px; color:var(--ink-soft); }
+
+  .navlabel{ font-size:9.5px; text-transform:uppercase; letter-spacing:0.14em; color:var(--ink-soft); margin:16px 6px 8px; }
+  .weeklist{ display:flex; flex-direction:column; gap:4px; }
+  .weekitem{ display:flex; align-items:center; gap:9px; padding:8px 9px; border-radius:11px; cursor:pointer; border:1px solid transparent; transition: background .15s ease, border-color .15s ease; position:relative; }
+  .weekitem:hover{ background: rgba(90,76,255,0.08); }
+  .weekitem.active{ background: var(--panel); border-color: rgba(90,76,255,0.35); box-shadow:0 4px 14px rgba(90,76,255,0.12); }
+  html[data-theme="dark"] .weekitem.active{ background: rgba(255,255,255,0.04); }
+  .weekdot{ width:8px; height:8px; border-radius:50%; flex:none; }
+  .weektext{ flex:1; min-width:0; }
+  .weektext .t{ font-size:12px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .weekbar{ height:3px; border-radius:3px; background:rgba(27,18,51,0.08); margin-top:4px; overflow:hidden; }
+  .weekbar > i{ display:block; height:100%; border-radius:3px; }
+  .weekpct{ font-size:10px; color:var(--ink-soft); font-weight:600; flex:none; width:28px; text-align:right; }
+  .cur-tag{ position:absolute; top:-6px; right:6px; background: var(--g-dream); color:#fff; font-size:8.5px; font-weight:800; padding:1px 6px; border-radius:999px; text-transform:uppercase; letter-spacing:0.04em; }
+
+  /* ---------- Main ---------- */
+  main{ padding:30px 36px 80px; max-width:960px; margin:0 auto; width:100%; }
+  @media (max-width:640px){ main{ padding:20px 16px 60px; } }
+
+  .hero{ border-radius:22px; background: var(--g-hero); padding:26px 30px; position:relative; overflow:hidden; margin-bottom:20px; box-shadow:0 16px 36px rgba(27,18,51,0.28); }
+  .hero::after{ content:"✦"; position:absolute; right:24px; top:16px; font-size:24px; color:rgba(255,255,255,0.85); }
+  .eyebrow{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.16em; color:rgba(255,255,255,0.75); font-weight:700; margin-bottom:6px; }
+  .hero h1{ margin:0 0 6px; font-size:26px; font-weight:800; letter-spacing:-0.01em; color:#fff; }
+  .hero p{ margin:0; max-width:520px; color:rgba(255,255,255,0.82); font-size:13.5px; line-height:1.55; }
+
+  .clock-row{ display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; align-items:center; }
+  .clock-chip{ background:rgba(255,255,255,0.14); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.18); border-radius:13px; padding:9px 14px; min-width:96px; }
+  .clock-chip b{ display:block; font-size:18px; font-weight:800; color:#fff; }
+  .clock-chip span{ font-size:9.5px; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.72); }
+  .clock-date{ display:flex; align-items:center; gap:8px; margin-left:auto; }
+  .clock-date input{ font-family:inherit; font-size:12px; padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.3); background:rgba(255,255,255,0.14); color:#fff; }
+  .clock-date input::-webkit-calendar-picker-indicator{ filter:invert(1); }
+  .clock-date label{ font-size:10.5px; color:rgba(255,255,255,0.75); }
+
+  .card{ background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:18px 20px; margin-bottom:20px; box-shadow:0 6px 20px var(--card-shadow); }
+  .card h3{ margin:0 0 4px; font-size:13px; letter-spacing:0.02em; display:flex; align-items:center; gap:7px; }
+  .card .muted{ font-size:11.5px; color:var(--ink-soft); margin:0 0 12px; }
+
+  /* Badges */
+  .badge-shelf{ display:flex; gap:9px; flex-wrap:wrap; }
+  .badge{ display:flex; flex-direction:column; align-items:center; gap:4px; width:76px; text-align:center; opacity:0.35; filter:grayscale(1); transition: opacity .2s ease, filter .2s ease, transform .15s ease; }
+  .badge.unlocked{ opacity:1; filter:none; }
+  .badge:hover{ transform: translateY(-2px); }
+  .badge-icon{ width:44px; height:44px; border-radius:13px; background:var(--tint); display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .badge.unlocked .badge-icon{ background: var(--rose); }
+  .badge-label{ font-size:9px; font-weight:700; color:var(--ink-soft); line-height:1.25; }
+
+  /* Roadmap timeline */
+  .roadmap{ display:flex; gap:12px; flex-wrap:wrap; }
+  .road-block{ flex:1; min-width:180px; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:13px 15px; }
+  .road-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+  .road-title{ font-size:12.5px; font-weight:700; }
+  .road-weeks{ font-size:10px; color:var(--ink-soft); margin-bottom:10px; }
+  .road-status{ font-size:10.5px; font-weight:800; border:none; border-radius:999px; padding:6px 12px; cursor:pointer; color:#fff; }
+
+  /* Practice / streak (reaproveitado) */
+  .practice-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+  @media (max-width:760px){ .practice-grid{ grid-template-columns:1fr 1fr; } }
+  .streak-tile{ background: var(--midnight); border-radius:15px; padding:14px; color:#fff; display:flex; flex-direction:column; justify-content:space-between; min-height:98px; }
+  .streak-num{ font-size:26px; font-weight:800; line-height:1; display:flex; align-items:center; gap:6px; }
+  .streak-label{ font-size:10px; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.75); margin-top:3px; }
+  .streak-btn{ margin-top:9px; align-self:flex-start; font-size:10.5px; font-weight:700; background:rgba(255,255,255,0.16); color:#fff; border:1px solid rgba(255,255,255,0.3); border-radius:999px; padding:5px 11px; cursor:pointer; }
+  .streak-btn:disabled{ opacity:0.55; cursor:default; }
+  .leet-tile{ background:var(--paper); border:1px solid var(--line); border-radius:15px; padding:12px 14px; display:flex; flex-direction:column; justify-content:space-between; min-height:98px; }
+  .leet-diff{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }
+  .leet-diff.easy{ color:#4E9B5C; } .leet-diff.medium{ color:#C97B1F; } .leet-diff.hard{ color:#E0557A; }
+  .leet-count{ font-size:22px; font-weight:800; margin:3px 0 7px; }
+  .leet-controls{ display:flex; gap:7px; }
+  .leet-btn{ width:24px; height:24px; border-radius:7px; border:1px solid var(--line); background:var(--tint); cursor:pointer; font-weight:800; font-size:13px; color:var(--ink); }
+  .leet-btn:hover{ background:#5A4CFF; color:#fff; }
+
+  .tool-links{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
+  .tool-link{ font-size:11.5px; font-weight:600; color:var(--ink); text-decoration:none; background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:6px 13px; }
+  .tool-link:hover{ background:#5A4CFF; color:#fff; }
+
+  .queue-add{ display:flex; gap:8px; margin-bottom:10px; }
+  .queue-add input{ flex:1; font-family:inherit; font-size:12.5px; padding:9px 12px; border-radius:11px; border:1px solid var(--line); background:var(--paper); color:var(--ink); }
+  .queue-add input:focus{ outline:none; border-color:#5A4CFF; }
+  .queue-list{ display:flex; flex-direction:column; gap:7px; }
+  .queue-empty{ font-size:11.5px; color:var(--ink-soft); padding:8px 2px; }
+  .queue-item{ display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--line); border-radius:11px; padding:9px 12px; }
+  .queue-item.overdue{ border-color:rgba(255,110,167,0.5); background:rgba(255,110,167,0.07); }
+  .queue-topic{ flex:1; font-size:12px; font-weight:600; }
+  .queue-meta{ font-size:10.5px; color:var(--ink-soft); }
+  .queue-meta.overdue-label{ color:#FF6EA7; font-weight:700; }
+  .queue-actions{ display:flex; gap:5px; }
+  .queue-action-btn{ font-size:10.5px; font-weight:700; border-radius:999px; padding:5px 10px; cursor:pointer; border:none; }
+  .queue-review{ background:var(--g-dream); color:#fff; }
+  .queue-remove{ background:transparent; color:var(--ink-soft); border:1px solid var(--line); }
+
+  /* Buttons genéricos */
+  .btn{ border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:12.5px; border-radius:999px; padding:9px 16px; display:inline-flex; align-items:center; gap:7px; }
+  .btn-primary{ background:var(--g-dream); color:#fff; box-shadow:0 8px 18px rgba(90,76,255,0.35); }
+  .btn-secondary{ background:var(--btn2-bg); color:var(--ink); border:1.5px solid #5A4CFF; }
+  .btn-ghost{ background:transparent; color:var(--ink-soft); font-size:11.5px; padding:7px 11px; }
+
+  /* Quest card (semana atual) */
+  .quest-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+  .quest-badge{ display:inline-block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.09em; padding:4px 10px; border-radius:999px; color:#fff; margin-bottom:8px; }
+  .quest-title{ font-size:20px; font-weight:800; margin:0 0 6px; letter-spacing:-0.01em; }
+  .quest-obj{ font-size:12.5px; color:var(--ink-soft); max-width:600px; line-height:1.55; margin:0; }
+  .quest-xp{ font-size:11px; font-weight:800; color:var(--ink-soft); white-space:nowrap; }
+
+  .quest-progressbar{ height:9px; border-radius:7px; background:var(--tint); overflow:hidden; margin:14px 0 18px; }
+  .quest-progressbar > i{ display:block; height:100%; border-radius:7px; transition:width .25s ease; }
+
+  .quest-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+  @media (max-width:700px){ .quest-grid{ grid-template-columns:1fr; } }
+  .quest-block{ background:var(--paper); border:1px solid var(--line); border-radius:13px; padding:11px 13px; }
+  .quest-block-label{ font-size:9.5px; text-transform:uppercase; letter-spacing:0.08em; font-weight:800; color:var(--ink-soft); display:flex; align-items:center; gap:5px; margin-bottom:6px; }
+  .quest-block-text{ font-size:12px; line-height:1.5; color:var(--ink); }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chip{ font-size:10.5px; font-weight:600; color:var(--ink); background:var(--panel); border:1px solid var(--line); padding:4px 10px; border-radius:999px; }
+
+  .resource-links{ display:flex; flex-wrap:wrap; gap:7px; }
+  .resource-link{ display:flex; align-items:center; gap:6px; font-size:11px; font-weight:600; color:var(--ink); text-decoration:none; background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:6px 12px; }
+  .resource-link:hover{ background:#5A4CFF; color:#fff; border-color:#5A4CFF; }
+  .resource-empty{ font-size:11.5px; color:var(--ink-soft); font-style:italic; }
+
+  .quest-deliverables{ margin-bottom:14px; }
+  .deliver-row{ display:flex; align-items:center; gap:12px; padding:10px 4px; border-bottom:1px solid var(--line); }
+  .deliver-row:last-child{ border-bottom:none; }
+  .deliver-text{ flex:1; font-size:12.5px; line-height:1.5; }
+  .deliver-row.done .deliver-text{ color:var(--ink-soft); text-decoration:line-through; text-decoration-color:rgba(27,18,51,0.3); }
+  .deliver-xp{ font-size:10px; font-weight:800; color:#FF6EA7; white-space:nowrap; }
+
+  .switch{ position:relative; width:40px; height:23px; flex:none; }
+  .switch input{ opacity:0; width:0; height:0; position:absolute; }
+  .switch label{ position:absolute; inset:0; border-radius:999px; cursor:pointer; background:var(--switch-off); transition:background .18s ease; }
+  .switch label::after{ content:""; position:absolute; top:3px; left:3px; width:17px; height:17px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.25); transition:transform .18s ease; }
+  .switch input:checked + label{ background:var(--g-dream); }
+  .switch input:checked + label::after{ transform:translateX(17px); }
+
+  .quest-criteria{ background:var(--tint); border-radius:12px; padding:12px 14px; font-size:12px; line-height:1.55; margin-bottom:14px; }
+  .quest-criteria b{ display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; color:var(--ink-soft); }
+  .quest-ref{ font-size:11px; color:var(--ink-soft); }
+  .quest-ref code{ font-family:'SFMono-Regular', Consolas, monospace; background:var(--paper); border:1px solid var(--line); padding:2px 8px; border-radius:7px; color:#5A4CFF; }
+
+  .quest-nav{ display:flex; justify-content:space-between; margin-top:18px; gap:10px; }
+
+  /* Matriz de competências */
+  .matrix-row{ display:flex; align-items:center; gap:10px; padding:8px 2px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .matrix-row:last-child{ border-bottom:none; }
+  .matrix-name{ flex:1; min-width:160px; font-size:12px; font-weight:600; }
+  .matrix-pills{ display:flex; gap:5px; }
+  .matrix-pill{ font-size:9.5px; font-weight:700; padding:5px 9px; border-radius:999px; border:1px solid var(--line); background:var(--paper); color:var(--ink-soft); cursor:pointer; }
+  .matrix-pill.active{ background:var(--g-dream); color:#fff; border-color:transparent; }
+
+  /* Curadoria compacta */
+  .curation-cols{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  @media (max-width:760px){ .curation-cols{ grid-template-columns:1fr; } }
+  .curation-col-title{ font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  .curation-list{ display:flex; flex-direction:column; gap:6px; }
+  .curation-item{ font-size:11.5px; line-height:1.4; padding:7px 9px; background:var(--paper); border:1px solid var(--line); border-radius:9px; }
+  .curation-item a{ color:var(--ink); font-weight:700; text-decoration:none; }
+  .curation-item a:hover{ color:#5A4CFF; }
+
+  footer.note{ margin-top:24px; font-size:11px; color:var(--ink-soft); line-height:1.6; border-top:1px solid var(--line); padding-top:14px; }
+  ::-webkit-scrollbar{ width:8px; } ::-webkit-scrollbar-thumb{ background:#5A4CFF; border-radius:8px; opacity:.5; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">✦</div>
+      <div class="brand-title">Dreamy&nbsp;Neon</div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Alternar tema">☾</button>
+    </div>
+    <div class="brand-sub">Sprint 12 Semanas</div>
+
+    <div class="xp-wrap">
+      <div class="xp-level" id="xpLevel">Nível 1 — Explorando o Terreno</div>
+      <div class="xp-bar"><i id="xpBarFill" style="width:0%"></i></div>
+      <div class="xp-caption" id="xpCaption">0 XP</div>
+    </div>
+
+    <div class="navlabel">O Sprint</div>
+    <nav class="weeklist" id="weekList"></nav>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow">TRACI · Sprint de Empregabilidade</div>
+      <h1>12 Semanas para Software Engineering <span class="sparkle">✦</span></h1>
+      <p>Aprender → aplicar → construir → documentar → explicar → entrevistar → receber feedback → corrigir. Cada semana é uma missão — os entregáveis abaixo dão XP.</p>
+      <div class="clock-row">
+        <div class="clock-chip"><b id="clockCurrentWeek">—</b><span>semana atual</span></div>
+        <div class="clock-chip"><b id="clockWeeksLeft">—</b><span>restam</span></div>
+        <div class="clock-chip"><b id="clockPct">0%</b><span>sprint concluído</span></div>
+        <div class="clock-date">
+          <label for="startDate">Início do sprint:</label>
+          <input type="date" id="startDate">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🏆 Conquistas</h3>
+      <p class="muted">Desbloqueadas automaticamente conforme seu progresso real</p>
+      <div class="badge-shelf" id="badgeShelf"></div>
+    </div>
+
+    <div class="card">
+      <h3>🗺️ Roadmap de Projetos</h3>
+      <p class="muted">Poucos projetos, porém fortes — atualize o status conforme avança</p>
+      <div class="roadmap" id="roadmapGrid"></div>
+    </div>
+
+    <div class="card">
+      <h3>🧠 Prática Deliberada</h3>
+      <p class="muted">LeetCode e afins — rotina contínua desde a Semana 1 (ver Semana 1-2 no sprint)</p>
+      <div class="practice-grid">
+        <div class="streak-tile">
+          <div><div class="streak-num">🔥 <span id="streakNum">0</span></div><div class="streak-label">dias seguidos</div></div>
+          <button class="streak-btn" id="streakBtn" onclick="markPracticeToday()">Marquei hoje ✓</button>
+        </div>
+        <div class="leet-tile">
+          <span class="leet-diff easy">Fácil</span><span class="leet-count" id="leetEasyCount">0</span>
+          <div class="leet-controls"><button class="leet-btn" onclick="incLeet('easy',-1)">−</button><button class="leet-btn" onclick="incLeet('easy',1)">+</button></div>
+        </div>
+        <div class="leet-tile">
+          <span class="leet-diff medium">Médio</span><span class="leet-count" id="leetMediumCount">0</span>
+          <div class="leet-controls"><button class="leet-btn" onclick="incLeet('medium',-1)">−</button><button class="leet-btn" onclick="incLeet('medium',1)">+</button></div>
+        </div>
+        <div class="leet-tile">
+          <span class="leet-diff hard">Difícil</span><span class="leet-count" id="leetHardCount">0</span>
+          <div class="leet-controls"><button class="leet-btn" onclick="incLeet('hard',-1)">−</button><button class="leet-btn" onclick="incLeet('hard',1)">+</button></div>
+        </div>
+      </div>
+      <div class="tool-links">
+        <a class="tool-link" href="https://leetcode.com" target="_blank" rel="noopener">LeetCode ↗</a>
+        <a class="tool-link" href="https://neetcode.io/practice" target="_blank" rel="noopener">NeetCode 150 ↗</a>
+        <a class="tool-link" href="https://www.hackerrank.com" target="_blank" rel="noopener">HackerRank ↗</a>
+        <a class="tool-link" href="https://www.codewars.com" target="_blank" rel="noopener">Codewars ↗</a>
+        <a class="tool-link" href="https://exercism.org" target="_blank" rel="noopener">Exercism ↗</a>
+      </div>
+      <h3 style="margin-top:4px;">📋 Fila de revisão espaçada</h3>
+      <div class="queue-add">
+        <input type="text" id="queueInput" placeholder="O que você revisou hoje?" />
+        <button class="btn btn-primary" onclick="addToQueue()">Adicionar</button>
+      </div>
+      <div class="queue-list" id="queueList"></div>
+    </div>
+
+    <div class="card" id="questCard">
+      <div class="quest-head">
+        <div>
+          <span class="quest-badge" id="questBadge">Semana 1</span>
+          <h2 class="quest-title" id="questTitle">—</h2>
+          <p class="quest-obj" id="questObj">—</p>
+        </div>
+        <div class="quest-xp" id="questXp">+0 XP disponível</div>
+      </div>
+
+      <div class="quest-progressbar"><i id="questBarFill" style="width:0%"></i></div>
+
+      <div class="quest-grid">
+        <div class="quest-block"><div class="quest-block-label">🎯 Competências técnicas</div><div class="chip-row" id="qCompetencias"></div></div>
+        <div class="quest-block"><div class="quest-block-label">📚 Conteúdo prioritário</div><div class="chip-row" id="qConteudo"></div></div>
+        <div class="quest-block"><div class="quest-block-label">🏗️ Projeto / prática</div><div class="quest-block-text" id="qProjeto">—</div></div>
+        <div class="quest-block"><div class="quest-block-label">🧩 Algoritmos</div><div class="quest-block-text" id="qAlgoritmos">—</div></div>
+        <div class="quest-block"><div class="quest-block-label">🎤 Entrevista</div><div class="quest-block-text" id="qEntrevista">—</div></div>
+        <div class="quest-block"><div class="quest-block-label">💼 Empregabilidade</div><div class="quest-block-text" id="qEmpregabilidade">—</div></div>
+      </div>
+
+      <div class="quest-block" style="margin-bottom:16px;">
+        <div class="quest-block-label">🎓 Recursos desta semana</div>
+        <div class="resource-links" id="qRecursos"></div>
+      </div>
+
+      <div class="quest-block-label" style="margin-bottom:8px;">✅ Entregáveis (cada um vale XP)</div>
+      <div class="quest-deliverables" id="qDeliverables"></div>
+
+      <div class="quest-criteria"><b>Critério de conclusão</b><span id="qCriterio">—</span></div>
+      <div class="quest-ref">Aprofundar no guia completo: <code id="qModuloRef">—</code></div>
+
+      <div class="quest-nav">
+        <button class="btn btn-secondary" id="btnPrevWeek" onclick="gotoWeekOffset(-1)">← Semana anterior</button>
+        <button class="btn btn-primary" id="btnNextWeek" onclick="gotoWeekOffset(1)">Próxima semana →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Matriz de Competências</h3>
+      <p class="muted">Autoavaliação — atualize sempre que sentir que subiu de nível em algo</p>
+      <div id="matrixGrid"></div>
+    </div>
+
+    <div class="card">
+      <h3>📦 Curadoria de Recursos & Backlog</h3>
+      <p class="muted">Regra: "isso é necessário para o objetivo dos próximos 3 meses?" — se não for, vai pro backlog</p>
+      <div class="curation-cols">
+        <div>
+          <div class="curation-col-title">🟢 Essencial</div>
+          <div class="curation-list" id="curEssencial"></div>
+        </div>
+        <div>
+          <div class="curation-col-title">🟡 Complementar</div>
+          <div class="curation-list" id="curComplementar"></div>
+        </div>
+        <div>
+          <div class="curation-col-title">🔴 Backlog — não agora</div>
+          <div class="curation-list" id="curBacklog"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Ações</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <button class="btn btn-primary" onclick="markAllCurrentWeek()">Concluir semana atual →</button>
+        <button class="btn btn-secondary" onclick="exportProgress()">Exportar progresso</button>
+        <button class="btn btn-ghost" onclick="resetProgress()">Reiniciar tudo</button>
+      </div>
+    </div>
+
+    <footer class="note">
+      Versão interativa do <b>TRACI — Sprint de 12 Semanas para Empregabilidade em Software Engineering</b>
+      (<code>sprint/sprint-12-semanas.md</code>). Cada entregável concluído soma XP; complete todos os
+      entregáveis de uma semana para ganhar o bônus de conclusão. Progresso salvo neste navegador.
+    </footer>
+  </main>
+</div>
+
+<script>
+/* ================= DADOS DO SPRINT ================= */
+const GRADIENTS = ['g-flare','g-dream','g-electric','g-bloom','g-dusk'];
+const GRADIENT_CSS = {
+  'g-flare':    'linear-gradient(135deg, #FFB36B 0%, #FF6EA7 100%)',
+  'g-dream':    'linear-gradient(135deg, #5A4CFF 0%, #FF6EA7 100%)',
+  'g-electric': 'linear-gradient(135deg, #5A4CFF 0%, #FFB36B 100%)',
+  'g-bloom':    'linear-gradient(135deg, #FF6EA7 0%, #E9E4FF 100%)',
+  'g-dusk':     'linear-gradient(135deg, #5A4CFF 0%, #0D0B1A 100%)',
+};
+const SOLID = { 'g-flare':'#FFB36B','g-dream':'#FF6EA7','g-electric':'#5A4CFF','g-bloom':'#8A63FF','g-dusk':'#1B1233' };
+const TYPE_ICON = { curso:'🎓', doc:'📄', ferramenta:'🧰' };
+
+const WEEKS = [
+  { num:1, title:'Fundação: Ambiente & Posicionamento',
+    obj:'Sair da exploração pra execução — ambiente pronto, GitHub organizado, currículo v1, rotina diária começando.',
+    competencias:['Setup profissional','Terminal','Git/GitHub'],
+    conteudo:['Revisão de Git (branches/commits/PR)','Fundamentos de terminal'],
+    moduloRef:'modulos/modulo-01.md, modulos/modulo-06.md',
+    recursos:[{type:'curso',text:'Odin — Foundations',url:'https://www.theodinproject.com/paths/foundations'},{type:'curso',text:'MIT Missing Semester',url:'https://missing.csail.mit.edu/'},{type:'curso',text:'CS50x (Semana 0)',url:'https://cs50.harvard.edu/x/'}],
+    projeto:'Nenhum projeto ainda — reorganize seus repositórios existentes (público/privado/arquivado).',
+    algoritmos:'Diagnóstico: 5 problemas Easy sem cronômetro, pra mapear onde você está.',
+    entrevista:'Leia 10 perguntas técnicas comuns de Junior JS/Node (sem responder ainda).',
+    empregabilidade:'Currículo v1 (rascunho) + GitHub configurado (foto/bio/README).',
+    deliverables:['GitHub reorganizado (perfil + repositórios triados)','Currículo v1 escrito','5 problemas LeetCode diagnosticados e documentados'],
+    criterio:'Clareza escrita de onde você está tecnicamente agora; ambiente não é mais obstáculo.' },
+
+  { num:2, title:'Consolidar Backend Base + Algoritmos por Padrão',
+    obj:'Eliminar lacunas em Node/TS/SQL antes do Projeto Secundário 1; iniciar prática por padrão (não aleatória).',
+    competencias:['Node/Express','TypeScript','SQL'],
+    conteudo:['JS: closures, event loop, async/await','TS: interfaces, generics básicos'],
+    moduloRef:'modulos/modulo-03.md, modulos/modulo-04.md, modulos/modulo-08.md',
+    recursos:[{type:'curso',text:'freeCodeCamp — JS Algorithms',url:'https://www.freecodecamp.org/learn/javascript-v9'},{type:'curso',text:'Odin — NodeJS course',url:'https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs'}],
+    projeto:'Modele (sem codar) o schema do Projeto Secundário 1 — Controle Financeiro Pessoal.',
+    algoritmos:'Padrão Arrays & Hashing — 5-6 problemas cronometrados (25 min cada).',
+    entrevista:'Grave-se respondendo "me fale sobre um projeto que você fez".',
+    empregabilidade:'Currículo v2 revisado (ATS) + LinkedIn com headline e "Sobre".',
+    deliverables:['Schema do banco modelado e versionado no GitHub','5-6 problemas de Arrays & Hashing resolvidos','Currículo v2 revisado (ATS-friendly)','LinkedIn com headline e "Sobre" preenchidos'],
+    criterio:'Monta schema relacional sem hesitar; resolve Easy de array/hash sem travar na sintaxe.' },
+
+  { num:3, title:'Secundário 1: Fundação (API + Auth)',
+    obj:'Primeiro código de portfólio do sprint — API funcional com autenticação real.',
+    competencias:['NestJS','JWT','bcrypt'],
+    conteudo:['Controllers/services/módulos','Hash de senha'],
+    moduloRef:'modulos/modulo-07.md, modulos/modulo-12.md',
+    recursos:[{type:'doc',text:'NestJS Docs',url:'https://docs.nestjs.com/'},{type:'curso',text:'DIO — Backend Corpay',url:'https://www.dio.me/bootcamp/bootcamp-corpay-backend-do-zero-a-pratica'}],
+    projeto:'Projeto Secundário 1: cadastro/login com JWT, CRUD de transações, saldo calculado (nunca armazenado).',
+    algoritmos:'Padrão Two Pointers — 5 problemas cronometrados.',
+    entrevista:'Explique em voz alta por que o saldo é calculado, e não armazenado.',
+    empregabilidade:'README de perfil do GitHub publicado + rascunho de mensagem de apresentação.',
+    deliverables:['Cadastro/login com JWT + bcrypt funcionando','CRUD de transações implementado','Commits seguindo Conventional Commits','README de perfil publicado'],
+    criterio:'API roda ponta a ponta localmente (cadastro→login→transação→saldo), sem gambiarra.' },
+
+  { num:4, title:'Secundário 1: Testes, Validação & Primeiras Candidaturas',
+    obj:'De "funciona" pra "profissional" — testes, validação, e as primeiras candidaturas reais.',
+    competencias:['Jest','Validação (Zod)','Tratamento de erro'],
+    conteudo:['Testes unitários/integração','Validação de entrada'],
+    moduloRef:'modulos/modulo-09.md',
+    recursos:[{type:'doc',text:'Jest',url:'https://jestjs.io/'},{type:'curso',text:'freeCodeCamp — QA',url:'https://www.freecodecamp.org/learn/quality-assurance/'}],
+    projeto:'Testes unitários (saldo/relatório) + integração dos endpoints; validação em toda rota de escrita.',
+    algoritmos:'Padrão Sliding Window — 5 problemas.',
+    entrevista:'Simule 20 min explicando "como e por que você testou esse projeto".',
+    empregabilidade:'Deploy simples do Secundário 1 + 3-5 candidaturas enviadas.',
+    deliverables:['Cobertura de testes na lógica crítica','Validação em 100% das rotas de escrita','Deploy funcional (link público)','3-5 candidaturas registradas no tracking'],
+    criterio:'Link público testável por qualquer pessoa; já aplicou para pelo menos 3 vagas reais.' },
+
+  { num:5, title:'Fechamento do Secundário 1 + Modelagem do Principal',
+    obj:'Fechar o primeiro projeto com qualidade de portfólio; desenhar o Principal antes de codar.',
+    competencias:['Docker básico','CI simples','Requisitos func./não-func.'],
+    conteudo:['Dockerizar app','Requisitos do Projeto Principal'],
+    moduloRef:'modulos/modulo-11.md, modulos/modulo-13.md',
+    recursos:[{type:'doc',text:'Docker — Get Started',url:'https://docs.docker.com/get-started/'},{type:'curso',text:'DIO — Database Experience',url:'https://www.dio.me/bootcamp/database-experience'}],
+    projeto:'Dockerize o Secundário 1 + README final; escreva os requisitos do Projeto Principal (Reservas ou Pedidos).',
+    algoritmos:'Padrão Busca Binária — 5 problemas.',
+    entrevista:'Resolva 1 problema Medium ao vivo, cronometrado, verbalizando o raciocínio.',
+    empregabilidade:'3-5 novas candidaturas + primeiro follow-up das candidaturas da Semana 4.',
+    deliverables:['Secundário 1 dockerizado + README completo','Documento de requisitos do Projeto Principal','3-5 candidaturas + follow-up realizado'],
+    criterio:'Secundário 1 tem "selo de pronto"; Principal tem requisitos claros antes do código.' },
+
+  { num:6, title:'Principal: Arquitetura e Backend Core',
+    obj:'Começar o projeto-âncora do portfólio com arquitetura pensada desde o início.',
+    competencias:['SOLID','Clean Code','Repository Pattern'],
+    conteudo:['Arquitetura em camadas'],
+    moduloRef:'modulos/modulo-10.md',
+    recursos:[{type:'doc',text:'Full Stack Open — Parte 3',url:'https://fullstackopen.com/en/part3'}],
+    projeto:'Estruture em camadas, modele as entidades centrais, implemente a regra de negócio mais crítica primeiro.',
+    algoritmos:'Padrão Recursão — 4-5 problemas.',
+    entrevista:'Prepare 2 histórias STAR (um erro corrigido; um aprendizado rápido sob pressão).',
+    empregabilidade:'3-5 candidaturas; registre no sistema de revisão qualquer pergunta técnica de entrevista recente.',
+    deliverables:['Estrutura em camadas do Projeto Principal criada','Regra de negócio crítica implementada e testada manualmente','2 histórias STAR escritas','3-5 candidaturas'],
+    criterio:'A regra de negócio mais arriscada já está implementada; você explica a estrutura de camadas em voz alta.' },
+
+  { num:7, title:'Principal: Persistência, Concorrência e Testes',
+    obj:'A parte tecnicamente mais exigente do sprint — lidar com concorrência de verdade.',
+    competencias:['Transações','Constraints','Testes de concorrência'],
+    conteudo:['ACID aplicado','Testes de integração'],
+    moduloRef:'modulos/modulo-08.md, modulos/modulo-09.md',
+    recursos:[{type:'doc',text:'PostgreSQL — Transações',url:'https://www.postgresql.org/docs/'}],
+    projeto:'Implemente persistência com transações reais; escreva um teste que dispara 2 requisições simultâneas.',
+    algoritmos:'Padrão BFS/DFS — 5 problemas.',
+    entrevista:'Simule explicar "como você testou que seu sistema previne X sob concorrência".',
+    empregabilidade:'5 candidaturas; qualquer lacuna técnica que te pegou de surpresa vira prioridade de estudo.',
+    deliverables:['Transações implementadas corretamente','Teste de concorrência passando','5 candidaturas + lacuna técnica corrigida'],
+    criterio:'Teste automatizado prova a regra de concorrência; você narra esse teste com confiança.' },
+
+  { num:8, title:'Principal: Frontend de Consumo + Segurança',
+    obj:'Dar rosto ao backend (React consumindo a própria API) e fechar segurança básica.',
+    competencias:['React + TS consumindo API','Rate limiting','CORS'],
+    conteudo:['OWASP Top 10 aplicado no próprio projeto'],
+    moduloRef:'modulos/modulo-12.md',
+    recursos:[{type:'doc',text:'OWASP Top 10',url:'https://owasp.org/www-project-top-ten/'},{type:'curso',text:'Odin — React course',url:'https://www.theodinproject.com/paths/full-stack-javascript/courses/react'},{type:'curso',text:'DIO — React Developer',url:'https://www.dio.me/curso-react'}],
+    projeto:'2-3 telas React consumindo a API real; rate limiting nas rotas sensíveis; auditoria de mensagens de erro.',
+    algoritmos:'Padrão Programação Dinâmica (introdução) — 4 problemas.',
+    entrevista:'"Como você previne SQL Injection/XSS?" — responda com exemplo do próprio código.',
+    empregabilidade:'5 candidaturas.',
+    deliverables:['Frontend mínimo funcional consumindo a API real','Rate limiting implementado','SECURITY.md documentado','5 candidaturas'],
+    criterio:'Demonstra o sistema ponta a ponta (tela→API→banco) numa call sem travar.' },
+
+  { num:9, title:'Principal: Deploy, CI/CD e Fechamento',
+    obj:'Projeto pronto para qualquer entrevista, com link público e pipeline automatizado.',
+    competencias:['Docker Compose','GitHub Actions','ADRs'],
+    conteudo:['README com decisões técnicas documentadas'],
+    moduloRef:'modulos/modulo-11.md, modulos/modulo-14.md',
+    recursos:[{type:'doc',text:'GitHub Actions',url:'https://docs.github.com/actions'}],
+    projeto:'Pipeline de CI/CD completo (lint→testes→build→deploy); README final com arquitetura, ADRs e GIF.',
+    algoritmos:'Revisão — refaça, sem consulta, 3 problemas que errou antes.',
+    entrevista:'Simulação completa de 45 min (1 problema técnico desconhecido + perguntas sobre o projeto).',
+    empregabilidade:'5 candidaturas; analise o funil e ajuste a Semana 10 com base nele.',
+    deliverables:['Pipeline de CI/CD rodando em produção','README final com ADRs e GIF','Simulação de entrevista completa registrada','5 candidaturas'],
+    criterio:'Projeto Principal no estado "mostraria isso amanhã sem editar às pressas".' },
+
+  { num:10, title:'Secundário 2: Lacuna Específica',
+    obj:'Construir o projeto que preenche a lacuna mais evidente até aqui (não pré-definida — decidida agora).',
+    competencias:['Definidas pela lacuna identificada (ex: filas, segurança)'],
+    conteudo:['Módulo correspondente à lacuna'],
+    moduloRef:'anexos/anexo-b-portfolio.md',
+    recursos:[],
+    projeto:'Projeto Secundário 2 — pequeno e focado, prova uma competência específica, não repete a complexidade do Principal.',
+    algoritmos:'Padrão com mais erro na sua fila de revisão espaçada.',
+    entrevista:'Foco total na lacuna identificada na Semana 9.',
+    empregabilidade:'5 candidaturas; revise currículo/LinkedIn se a taxa de resposta estiver baixa.',
+    deliverables:['Secundário 2 funcional, com README','5 candidaturas','Ajuste no currículo/LinkedIn, se necessário'],
+    criterio:'A lacuna da Semana 9 está objetivamente menor do que estava.' },
+
+  { num:11, title:'Refinamento Geral + Entrevistas Intensivas',
+    obj:'Portfólio, currículo e LinkedIn no estado final; ritmo de quem está prestes a fechar proposta.',
+    competencias:['Consolidação geral — nenhuma competência nova'],
+    conteudo:['Revisão completa do módulo de Currículo & Primeira Vaga'],
+    moduloRef:'modulos/modulo-15.md',
+    recursos:[],
+    projeto:'Revisão final dos 3 projetos — READMEs, links, GIFs, tudo funcionando.',
+    algoritmos:'2 simulações completas de entrevista técnica na semana.',
+    entrevista:'1 simulação comportamental completa + 1 técnica, com feedback de alguém.',
+    empregabilidade:'5-8 candidaturas; revisão de todo o funil de candidaturas.',
+    deliverables:['3 projetos revisados, sem link quebrado','2 simulações completas de entrevista realizadas','Funil de candidaturas analisado por escrito'],
+    criterio:'Apresenta o portfólio inteiro em 15 min, sem hesitar, pra alguém que nunca viu antes.' },
+
+  { num:12, title:'Fechamento do Sprint + Plano de Continuidade',
+    obj:'Consolidar as evidências de 12 semanas e definir o que vem depois — o sprint acaba, a busca não.',
+    competencias:['Consolidação final'],
+    conteudo:['Retrospectiva completa das 12 semanas'],
+    moduloRef:'—',
+    recursos:[],
+    projeto:'Nenhum projeto novo — apenas manutenção dos existentes.',
+    algoritmos:'Manter a rotina — não pausar mesmo na última semana.',
+    entrevista:'Continuar processos em andamento; se nenhum estiver rodando, isso é um dado, não um fracasso.',
+    empregabilidade:'Candidaturas contínuas; decisão consciente sobre o que vem depois.',
+    deliverables:['Retrospectiva completa das 12 semanas escrita','Matriz de competências atualizada do zero','Plano escrito para as próximas 4 semanas'],
+    criterio:'Evidência concreta (não sensação) de que você constrói, entende, explica e demonstra software.' },
+];
+
+/* Roadmap de projetos (Seção A) */
+const PROJECTS = [
+  { id:'sec1', title:'Secundário 1 — Controle Financeiro', weeks:'Semanas 3-5' },
+  { id:'principal', title:'Principal — Reservas/Pedidos', weeks:'Semanas 6-9' },
+  { id:'sec2', title:'Secundário 2 — Lacuna Específica', weeks:'Semanas 10-11' },
+];
+const STATUS_CYCLE = ['🔜 A começar','🚧 Em andamento','✅ Concluído'];
+const STATUS_GRAD = ['g-flare','g-electric','g-bloom'];
+
+/* Matriz de competências (Seção E) */
+const COMPETENCIES = [
+  'Fundamentos (lógica, algoritmos, complexidade)','Frontend (React/TS consumindo API)','Backend (Node/NestJS/APIs)',
+  'Databases (SQL, modelagem, transações)','Git/GitHub','Testes','Segurança','Arquitetura','Cloud/Deploy',
+  'Soft skills / comunicação técnica','Entrevistas (técnica + comportamental)'
+];
+const COMP_LEVELS = ['Não iniciado','Em desenvolvimento','Funcional','Sólido'];
+
+/* Curadoria de recursos (Seção C) */
+const CURATION = {
+  essencial: [
+    { text:'The Odin Project — Full Stack JS', url:'https://www.theodinproject.com/paths/full-stack-javascript' },
+    { text:'freeCodeCamp — JS Algorithms / Back-End APIs', url:'https://www.freecodecamp.org/learn/' },
+    { text:'LeetCode + NeetCode 150', url:'https://neetcode.io/practice' },
+    { text:'MDN Web Docs', url:'https://developer.mozilla.org/' },
+    { text:'docs.nestjs.com', url:'https://docs.nestjs.com/' },
+  ],
+  complementar: [
+    { text:'CS50x (só Semana 1)', url:'https://cs50.harvard.edu/x/' },
+    { text:'The Missing Semester — MIT', url:'https://missing.csail.mit.edu/' },
+    { text:'Full Stack Open — Helsinki', url:'https://fullstackopen.com/en/' },
+    { text:'Nand2Tetris (se sobrar tempo)', url:'https://www.nand2tetris.org/' },
+    { text:'DIO (bootcamps oportunistas)', url:'https://www.dio.me/bootcamp' },
+  ],
+  backlog: [
+    { text:'Outro framework frontend (Vue/Angular)' },
+    { text:'Outra linguagem além de JS/TS (Java fica pro anexo-d, depois do sprint)' },
+    { text:'Certificações pagas (AWS, GCP...)' },
+    { text:'Cybersecurity / Data Engineering como estudo formal' },
+    { text:'GraphQL, microsserviços avançados, Kubernetes' },
+  ],
+};
+
+/* ================= ESTADO ================= */
+const STORAGE_KEY = 'misty-noir-sprint-12-semanas-v1';
+let state = {
+  currentIndex: 0,
+  weeksDone: {},        // { "1": {0:true,1:false,...} }
+  weekBonusGiven: {},   // { "1": true }
+  startDate: null,
+  practice: { streak:0, lastPracticeDate:null, leet:{easy:0,medium:0,hard:0}, queue:[] },
+  projectStatus: {},    // { sec1:0, principal:0, sec2:0 } -> index em STATUS_CYCLE
+  matrix: {},           // { "Fundamentos...": 0 } -> index em COMP_LEVELS
+};
+try{
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) state = { ...state, ...JSON.parse(saved) };
+}catch(e){}
+
+function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+
+const REVIEW_INTERVALS = [1,3,7,15,30];
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function daysBetween(a,b){ return Math.round((new Date(b)-new Date(a))/86400000); }
+
+/* ================= XP & NÍVEL ================= */
+const XP_PER_DELIVERABLE = 10;
+const XP_WEEK_BONUS = 30;
+const LEVELS = [
+  { min:0,   name:'Nível 1 — Explorando o Terreno' },
+  { min:50,  name:'Nível 2 — Engrenagens Girando' },
+  { min:150, name:'Nível 3 — Construindo' },
+  { min:300, name:'Nível 4 — Ganhando Tração' },
+  { min:500, name:'Nível 5 — Quase Lá' },
+  { min:750, name:'Nível 6 — Pronta pra Entrevista' },
+];
+
+function weekDeliverDone(weekNum, idx){
+  return !!(state.weeksDone[weekNum] && state.weeksDone[weekNum][idx]);
+}
+function weekProgress(week){
+  const total = week.deliverables.length;
+  let done = 0;
+  for(let i=0;i<total;i++) if(weekDeliverDone(week.num,i)) done++;
+  return { done, total, pct: total ? Math.round((done/total)*100) : 0, complete: total>0 && done===total };
+}
+function totalXP(){
+  let xp = 0;
+  WEEKS.forEach(w=>{
+    const p = weekProgress(w);
+    xp += p.done * XP_PER_DELIVERABLE;
+    if (p.complete && state.weekBonusGiven[w.num]) xp += XP_WEEK_BONUS;
+  });
+  return xp;
+}
+function maxXP(){
+  let total = 0;
+  WEEKS.forEach(w=> total += w.deliverables.length * XP_PER_DELIVERABLE + XP_WEEK_BONUS);
+  return total;
+}
+function currentLevel(xp){
+  let lvl = LEVELS[0];
+  for(const l of LEVELS) if (xp >= l.min) lvl = l;
+  return lvl;
+}
+
+/* ================= SEMANA ATUAL (por data) ================= */
+function computeCurrentWeekNumber(){
+  if(!state.startDate) return null;
+  const diff = daysBetween(state.startDate, todayStr());
+  if (diff < 0) return null;
+  return Math.min(12, Math.floor(diff/7)+1);
+}
+
+/* ================= RENDER: SIDEBAR ================= */
+function renderSidebar(){
+  const list = document.getElementById('weekList');
+  list.innerHTML = '';
+  const curWeekNum = computeCurrentWeekNumber();
+  WEEKS.forEach((w, idx)=>{
+    const p = weekProgress(w);
+    const grad = GRADIENTS[idx % GRADIENTS.length];
+    const el = document.createElement('div');
+    el.className = 'weekitem' + (idx===state.currentIndex ? ' active' : '');
+    el.onclick = ()=>{ state.currentIndex = idx; save(); renderAll(); };
+    el.innerHTML = `
+      ${curWeekNum===w.num ? '<span class="cur-tag">Atual</span>' : ''}
+      <div class="weekdot" style="background:${SOLID[grad]}"></div>
+      <div class="weektext">
+        <div class="t">Semana ${w.num} · ${w.title}</div>
+        <div class="weekbar"><i style="width:${p.pct}%; background:${SOLID[grad]}"></i></div>
+      </div>
+      <div class="weekpct">${p.pct}%</div>
+    `;
+    list.appendChild(el);
+  });
+}
+
+/* ================= RENDER: HERO (XP, relógio) ================= */
+function renderHero(){
+  const xp = totalXP();
+  const lvl = currentLevel(xp);
+  const max = maxXP();
+  document.getElementById('xpLevel').textContent = lvl.name;
+  document.getElementById('xpBarFill').style.width = Math.min(100, Math.round((xp/max)*100)) + '%';
+  document.getElementById('xpCaption').textContent = `${xp} XP`;
+
+  const curWeekNum = computeCurrentWeekNumber();
+  document.getElementById('clockCurrentWeek').textContent = curWeekNum ? `Sem. ${curWeekNum}` : '—';
+  document.getElementById('clockWeeksLeft').textContent = curWeekNum ? `${12 - curWeekNum} sem.` : '12 sem.';
+  document.getElementById('clockPct').textContent = Math.round((xp/max)*100) + '%';
+  if (state.startDate) document.getElementById('startDate').value = state.startDate;
+}
+
+/* ================= RENDER: CONQUISTAS ================= */
+function computeAchievements(){
+  const totalLeet = state.practice.leet.easy + state.practice.leet.medium + state.practice.leet.hard;
+  const weeksComplete = WEEKS.filter(w => weekProgress(w).complete).length;
+  return [
+    { icon:'🔥', label:'Streak de 7 dias', unlocked: state.practice.streak >= 7 },
+    { icon:'🔥🔥', label:'Streak de 30 dias', unlocked: state.practice.streak >= 30 },
+    { icon:'🧩', label:'25 problemas resolvidos', unlocked: totalLeet >= 25 },
+    { icon:'🧩🧩', label:'100 problemas resolvidos', unlocked: totalLeet >= 100 },
+    { icon:'🏗️', label:'1ª semana concluída', unlocked: weeksComplete >= 1 },
+    { icon:'🚀', label:'Sprint na metade (6 semanas)', unlocked: weeksComplete >= 6 },
+    { icon:'🎓', label:'Sprint completo!', unlocked: weeksComplete >= 12 },
+    { icon:'📬', label:'Fila de revisão ativa', unlocked: state.practice.queue.length >= 1 },
+  ];
+}
+function renderBadges(){
+  const shelf = document.getElementById('badgeShelf');
+  shelf.innerHTML = computeAchievements().map(b => `
+    <div class="badge ${b.unlocked ? 'unlocked' : ''}" title="${b.label}">
+      <div class="badge-icon">${b.icon}</div>
+      <div class="badge-label">${b.label}</div>
+    </div>
+  `).join('');
+}
+
+/* ================= RENDER: ROADMAP DE PROJETOS ================= */
+function cycleProjectStatus(id){
+  const cur = state.projectStatus[id] || 0;
+  state.projectStatus[id] = (cur + 1) % STATUS_CYCLE.length;
+  save();
+  renderRoadmap();
+}
+function renderRoadmap(){
+  const grid = document.getElementById('roadmapGrid');
+  grid.innerHTML = PROJECTS.map((p, i) => {
+    const statusIdx = state.projectStatus[p.id] || 0;
+    const grad = STATUS_GRAD[statusIdx];
+    return `
+      <div class="road-block">
+        <div class="road-head">
+          <span class="road-title">${p.title}</span>
+        </div>
+        <div class="road-weeks">${p.weeks}</div>
+        <button class="road-status" style="background:${SOLID[grad]}" onclick="cycleProjectStatus('${p.id}')">${STATUS_CYCLE[statusIdx]}</button>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ================= RENDER: PRÁTICA DELIBERADA ================= */
+function markPracticeToday(){
+  const today = todayStr();
+  if (state.practice.lastPracticeDate === today) return;
+  if (state.practice.lastPracticeDate) {
+    const gap = daysBetween(state.practice.lastPracticeDate, today);
+    state.practice.streak = (gap === 1) ? state.practice.streak + 1 : 1;
+  } else { state.practice.streak = 1; }
+  state.practice.lastPracticeDate = today;
+  save(); renderAll();
+}
+function incLeet(diff, delta){
+  state.practice.leet[diff] = Math.max(0, (state.practice.leet[diff]||0) + delta);
+  save(); renderAll();
+}
+function addToQueue(){
+  const input = document.getElementById('queueInput');
+  const topic = input.value.trim();
+  if (!topic) return;
+  state.practice.queue.push({ id:'q'+Date.now(), topic, addedDate: todayStr(), intervalIndex:0 });
+  input.value = '';
+  save(); renderAll();
+}
+function markReviewed(id){
+  const item = state.practice.queue.find(q=>q.id===id);
+  if (!item) return;
+  if (item.intervalIndex >= REVIEW_INTERVALS.length-1) {
+    state.practice.queue = state.practice.queue.filter(q=>q.id!==id);
+  } else {
+    item.intervalIndex += 1;
+    item.addedDate = todayStr();
+  }
+  save(); renderAll();
+}
+function removeFromQueue(id){
+  state.practice.queue = state.practice.queue.filter(q=>q.id!==id);
+  save(); renderAll();
+}
+function nextReviewDate(item){
+  const d = new Date(item.addedDate);
+  d.setDate(d.getDate() + REVIEW_INTERVALS[item.intervalIndex]);
+  return d.toISOString().slice(0,10);
+}
+function renderPractice(){
+  document.getElementById('streakNum').textContent = state.practice.streak;
+  const already = state.practice.lastPracticeDate === todayStr();
+  const btn = document.getElementById('streakBtn');
+  btn.disabled = already;
+  btn.textContent = already ? 'Hoje já marcado ✓' : 'Marquei hoje ✓';
+
+  document.getElementById('leetEasyCount').textContent = state.practice.leet.easy;
+  document.getElementById('leetMediumCount').textContent = state.practice.leet.medium;
+  document.getElementById('leetHardCount').textContent = state.practice.leet.hard;
+
+  const list = document.getElementById('queueList');
+  const today = todayStr();
+  if (state.practice.queue.length === 0){
+    list.innerHTML = '<div class="queue-empty">Nada na fila ainda — adicione o que revisou hoje.</div>';
+  } else {
+    list.innerHTML = state.practice.queue.slice().sort((a,b)=>nextReviewDate(a).localeCompare(nextReviewDate(b))).map(item=>{
+      const due = nextReviewDate(item);
+      const overdue = due <= today;
+      return `
+        <div class="queue-item ${overdue?'overdue':''}">
+          <div style="flex:1">
+            <div class="queue-topic">${item.topic}</div>
+            <div class="queue-meta ${overdue?'overdue-label':''}">${overdue?'Revisão pendente':'Próxima revisão'}: ${due} · ciclo ${item.intervalIndex+1}/${REVIEW_INTERVALS.length}</div>
+          </div>
+          <div class="queue-actions">
+            <button class="queue-action-btn queue-review" onclick="markReviewed('${item.id}')">Revisei ✓</button>
+            <button class="queue-action-btn queue-remove" onclick="removeFromQueue('${item.id}')">Remover</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+document.getElementById('queueInput').addEventListener('keydown', e => { if(e.key==='Enter') addToQueue(); });
+
+/* ================= RENDER: QUEST CARD (SEMANA) ================= */
+function setDeliverable(weekNum, idx, val){
+  if(!state.weeksDone[weekNum]) state.weeksDone[weekNum] = {};
+  state.weeksDone[weekNum][idx] = val;
+  const week = WEEKS.find(w=>w.num===weekNum);
+  const p = weekProgress(week);
+  if (p.complete) state.weekBonusGiven[weekNum] = true;
+  save(); renderAll();
+}
+function renderQuest(){
+  const w = WEEKS[state.currentIndex];
+  const grad = GRADIENTS[state.currentIndex % GRADIENTS.length];
+  const p = weekProgress(w);
+
+  const badge = document.getElementById('questBadge');
+  badge.textContent = `Semana ${w.num}`;
+  badge.style.background = SOLID[grad];
+  document.getElementById('questTitle').textContent = w.title;
+  document.getElementById('questObj').textContent = w.obj;
+  document.getElementById('questXp').textContent = `+${w.deliverables.length * XP_PER_DELIVERABLE + XP_WEEK_BONUS} XP possível`;
+  document.getElementById('questBarFill').style.width = p.pct + '%';
+  document.getElementById('questBarFill').style.background = SOLID[grad];
+
+  document.getElementById('qCompetencias').innerHTML = w.competencias.map(c=>`<span class="chip">${c}</span>`).join('');
+  document.getElementById('qConteudo').innerHTML = w.conteudo.map(c=>`<span class="chip">${c}</span>`).join('');
+  document.getElementById('qProjeto').textContent = w.projeto;
+  document.getElementById('qAlgoritmos').textContent = w.algoritmos;
+  document.getElementById('qEntrevista').textContent = w.entrevista;
+  document.getElementById('qEmpregabilidade').textContent = w.empregabilidade;
+
+  const rec = document.getElementById('qRecursos');
+  rec.innerHTML = w.recursos.length
+    ? w.recursos.map(r=>`<a class="resource-link" href="${r.url}" target="_blank" rel="noopener"><span>${TYPE_ICON[r.type]}</span>${r.text}</a>`).join('')
+    : `<span class="resource-empty">Sem recurso externo novo — aplique o que já foi estudado.</span>`;
+
+  const dv = document.getElementById('qDeliverables');
+  dv.innerHTML = w.deliverables.map((text, idx)=>{
+    const done = weekDeliverDone(w.num, idx);
+    const swId = `sw-w${w.num}-${idx}`;
+    return `
+      <div class="deliver-row ${done?'done':''}">
+        <div class="switch"><input type="checkbox" id="${swId}" ${done?'checked':''}><label for="${swId}"></label></div>
+        <div class="deliver-text">${text}</div>
+        <div class="deliver-xp">+${XP_PER_DELIVERABLE} XP</div>
+      </div>
+    `;
+  }).join('');
+  w.deliverables.forEach((_, idx)=>{
+    document.getElementById(`sw-w${w.num}-${idx}`).addEventListener('change', e=> setDeliverable(w.num, idx, e.target.checked));
+  });
+
+  document.getElementById('qCriterio').textContent = w.criterio;
+  document.getElementById('qModuloRef').textContent = w.moduloRef;
+
+  document.getElementById('btnPrevWeek').style.opacity = state.currentIndex===0 ? 0.4 : 1;
+  document.getElementById('btnNextWeek').textContent = state.currentIndex===WEEKS.length-1 ? 'Sprint concluído ✦' : 'Próxima semana →';
+}
+function gotoWeekOffset(off){
+  state.currentIndex = Math.min(WEEKS.length-1, Math.max(0, state.currentIndex+off));
+  save(); renderAll();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function markAllCurrentWeek(){
+  const w = WEEKS[state.currentIndex];
+  w.deliverables.forEach((_, idx)=> setDeliverable(w.num, idx, true));
+}
+
+/* ================= RENDER: MATRIZ DE COMPETÊNCIAS ================= */
+function setMatrix(name, levelIdx){
+  state.matrix[name] = levelIdx;
+  save(); renderMatrix();
+}
+function renderMatrix(){
+  const grid = document.getElementById('matrixGrid');
+  grid.innerHTML = COMPETENCIES.map(name => {
+    const cur = state.matrix[name] ?? -1;
+    const pills = COMP_LEVELS.map((lvl, i) => `<button class="matrix-pill ${cur===i?'active':''}" onclick="setMatrix('${name.replace(/'/g,"\\'")}', ${i})">${lvl}</button>`).join('');
+    return `<div class="matrix-row"><div class="matrix-name">${name}</div><div class="matrix-pills">${pills}</div></div>`;
+  }).join('');
+}
+
+/* ================= RENDER: CURADORIA ================= */
+function renderCuration(){
+  document.getElementById('curEssencial').innerHTML = CURATION.essencial.map(i=>`<div class="curation-item">${i.url?`<a href="${i.url}" target="_blank" rel="noopener">${i.text} ↗</a>`:i.text}</div>`).join('');
+  document.getElementById('curComplementar').innerHTML = CURATION.complementar.map(i=>`<div class="curation-item">${i.url?`<a href="${i.url}" target="_blank" rel="noopener">${i.text} ↗</a>`:i.text}</div>`).join('');
+  document.getElementById('curBacklog').innerHTML = CURATION.backlog.map(i=>`<div class="curation-item">${i.text}</div>`).join('');
+}
+
+/* ================= AÇÕES GERAIS ================= */
+function resetProgress(){
+  if(!confirm('Isso vai apagar todo o progresso salvo neste navegador. Continuar?')) return;
+  state = { currentIndex:0, weeksDone:{}, weekBonusGiven:{}, startDate:null, practice:{streak:0,lastPracticeDate:null,leet:{easy:0,medium:0,hard:0},queue:[]}, projectStatus:{}, matrix:{} };
+  save(); renderAll();
+}
+function exportProgress(){
+  const xp = totalXP();
+  const lvl = currentLevel(xp);
+  const lines = [`Sprint de 12 Semanas — ${lvl.name} (${xp} XP)`, ''];
+  WEEKS.forEach(w=>{
+    const p = weekProgress(w);
+    lines.push(`## Semana ${w.num} — ${w.title} (${p.done}/${p.total})`);
+    w.deliverables.forEach((text, idx)=> lines.push(`${weekDeliverDone(w.num,idx)?'[x]':'[ ]'} ${text}`));
+    lines.push('');
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/markdown'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='meu-progresso-sprint.md'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ================= TEMA ================= */
+const THEME_KEY = 'misty-noir-theme';
+function applyTheme(t){ document.documentElement.setAttribute('data-theme', t); document.getElementById('themeToggle').textContent = t==='dark' ? '☀' : '☾'; }
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme')==='dark' ? 'dark' : 'light';
+  const next = cur==='dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+}
+function initTheme(){
+  let t=null; try{ t=localStorage.getItem(THEME_KEY); }catch(e){}
+  if(!t) t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  applyTheme(t);
+}
+
+document.getElementById('startDate').addEventListener('change', e=>{
+  state.startDate = e.target.value || null;
+  save(); renderAll();
+});
+
+/* ================= INIT ================= */
+function renderAll(){
+  renderSidebar();
+  renderHero();
+  renderBadges();
+  renderRoadmap();
+  renderPractice();
+  renderQuest();
+  renderMatrix();
+  renderCuration();
+}
+initTheme();
+renderAll();
+</script>
+</body>
+</html>
