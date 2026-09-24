@@ -12,7 +12,7 @@ Este é um documento extenso, dividido em **capítulos sequenciais**, cada um co
 
 | Capítulo | Fases cobertas  | Tema                                                                                          | Arquivo                    | Status         |
 | -------- | --------------- | ---------------------------------------------------------------------------------------------- | --------------------------- | -------------- |
-| 1        | Fase 0 + Fase 1 | Mentalidade de Engenharia + Fundamentos da Computação                                          | `modulo-01.md`              | ⚪ Não Iniciado |
+| 1        | Fase 0 + Fase 1 | Mentalidade de Engenharia + Fundamentos da Computação                                          | `modulo-01.md`              | 🟡 Em Andamento |
 | 2        | Fase 2          | Lógica de Programação (algoritmos, complexidade, Big O)                                        | `modulo-02.md`              | ⚪ Não Iniciado |
 | 3        | Fase 3          | JavaScript Moderno (completo)                                                                  | `modulo-03.md`              | ⚪ Não Iniciado |
 | 4        | Fase 4          | TypeScript (completo)                                                                          | `modulo-04.md`              | ⚪ Não Iniciado |

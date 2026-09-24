@@ -8,7 +8,7 @@ Sem essa estrutura como alicerce, é comum que o estudo autodidata fique confuso
 
 > Esta fase existe para resolver um problema específico: **transformar consumo de conteúdo em capacidade real**, mensurável e demonstrável.
 
-> 🎨 **Conexão com Design Engineering (Anexo F):** parte da sua mentalidade de engenharia, no seu caso, começa reconhecendo que você já entra nesta trilha com uma bagagem que a maioria dos Juniors não tem — Design Gráfico e Branding. Isso não é "extra", é posicionamento. Vale começar o [`Anexo F — Trilha de Design Engineering`](../anexos/anexo-f-design-engineering.md) desde já pelo bloco F.1 (Fundamentos de Design de Interface), que roda em paralelo com esta fase e não exige saber programar ainda.
+> 🎨 **Conexão com Design Engineering (Anexo F):** Neste estágio inicial, a transição para uma mentalidade de engenharia apoia-se na bagagem prévia em Design Gráfico e Branding, redirecionando seus princípios para a concepção de interfaces. Sugere-se iniciar de imediato o bloco F.1 (Fundamentos de Design de Interface) do [`Anexo F — Trilha de Design Engineering`](../anexos/anexo-f-design-engineering.md) executado em paralelo a esta fase e acessível sem requisitos de programação.
 
 ---
 
