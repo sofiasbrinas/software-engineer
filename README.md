@@ -48,6 +48,9 @@ software-engineer/
 │
 ├── modulos/                           → conteúdo + checklist de cada uma das 16 fases
 │   ├── 00-INDICE-GERAL.md             → sumário geral, filosofia do guia e como navegar
+│   ├── anotacoes/                     → anotações pessoais de contato com o módulo
+│   │   ├── anotacao-modulo-01.md
+│   │   └── ...
 │   └── modulo-01.md ... modulo-15.md  → (Fase 0 e 1 juntas no módulo 01)
 │
 ├── anexos/                            → conteúdos de suporte: cronogramas, portfólio, empregabilidade, Java e Design Engineering
@@ -69,8 +72,7 @@ software-engineer/
 │
 └── empregabilidade/                   → currículo, tracking de candidaturas, materiais de networking
     ├── curriculo-pt.pdf
-    ├── curriculo-en.pdf
-    └── tracking-candidaturas.md
+    └── curriculo-en.pdf
 ```
 
 > 📎 `trilha-progresso.html` é o rastreador interativo (tema Dreamy Neon) com checklist de todas as etapas do guia, incluindo streak de prática diária e contador de LeetCode — basta baixar/clonar o repositório e abrir o arquivo no navegador. O progresso fica salvo localmente no seu navegador.
@@ -81,7 +83,7 @@ software-engineer/
 
 | # | Fase | Status | Arquivo |
 |---|---|:---:|---|
-| 0 | Mentalidade de Engenharia | ⚪ Não Iniciado | [`modulos/modulo-01.md`](modulos/modulo-01.md) |
+| 0 | Mentalidade de Engenharia | 🟡 Em Andamento | [`modulos/modulo-01.md`](modulos/modulo-01.md) |
 | 1 | Fundamentos da Computação | ⚪ Não Iniciado | [`modulos/modulo-01.md`](modulos/modulo-01.md) |
 | 2 | Lógica de Programação | ⚪ Não Iniciado | [`modulos/modulo-02.md`](modulos/modulo-02.md) |
 | 3 | JavaScript Moderno | ⚪ Não Iniciado | [`modulos/modulo-03.md`](modulos/modulo-03.md) |
